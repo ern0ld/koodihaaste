@@ -202,7 +202,6 @@ context.stroke();
            
            function initialize() {
                window.addEventListener('resize', resizeCanvas, false);
-               window.addEventListener()
                resizeCanvas();
             }
     
