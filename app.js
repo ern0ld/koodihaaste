@@ -146,8 +146,9 @@ const width = window.innerWidth;
               guideList.hidden =false;
             reSizeSmall(newSize);
                 }
+                else{
                 return null;
-            }
+            }}
         }
         function reSizeLarge(newSize){
         document.getElementById("mySidenav").style.width = newSize+"px"
