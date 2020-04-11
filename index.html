@@ -1,28 +1,43 @@
 <!DOCTYPE html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <meta charset="UTF-8">
 <link rel="stylesheet" href="style.css">
 </head>
 <main>
 <body>
-    <div id="reittihaku">
-<h1>Reittihaku</h1>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        
+        <div class="kartta"><img src="varikartta.png" class="kartta" id="varikartta" alt="" hidden>
+            <canvas id='myCanvas'></canvas>
+            
+        </div>
+       <div class="instructions"> <ul id="guidelist"></ul></div> 
+      </div> </div>
+      
+      
+    <div id="reittihaku" class="page active">
+<h1 class="h1">Reittihaku</h1>
 
 <h2>Syötä lähtöpiste ja päätepiste (Vaihtoehdot A-R)</h2>
 <label for="fname">Lähtöpiste:</label>
 <input type="text" id="startPoint" name="fname"><br><br>
 <label for="lname">Päätepiste:</label>
 <input type="text" id="endPoint" name="lname"><br><br>
-<h3 id="invalidInput" hidden>Lähtö- ja päätepisteiden täytyy olla kirjaimia väliltä A-R</h3>
-<button id="laskeReittiBtn">Hae reitti ja kesto</button>
+<button id="calculateBtn" class="constant">Hae reitti ja kesto</button>
+<button class="constant" onclick="openNav()">&#9776; Näytä kartta</button>
 <h2 id="tulos"></h2></div>
-<div id="karttadiv"><img src="kartta.png" width="960" height="640" alt=""></div>
+<div class="kartta"><img src="varikartta.png" class="kartta" id="varikartta" alt="" hidden>
+    <canvas id='myCanvas'></canvas></div>
 </br>
 </br>
 </br>
 </br>
 </br>
 </br>
-
+<script src="storage.js"></script>
+<script src="graphics.js"></script>
 <script src="app.js"></script>
 </body></main>

@@ -1,0 +1,166 @@
+    /*function drawImage(result,startPoint){
+       
+        var img = new Image(640,480)
+        img.onload = initialize;
+        img.src = "varikartta.png"
+        
+          
+            // Obtain a reference to the canvas element using its id.
+            var htmlCanvas = document.getElementById("myCanvas");
+            // Obtain a graphics context on the canvas element for drawing.
+            var ctx = htmlCanvas.getContext("2d");
+    
+           // Start listening to resize events and draw canvas.
+           
+    
+           function initialize() {
+               // Register an event listener to call the resizeCanvas() function 
+               // each time the window is resized.
+               window.addEventListener('resize', resizeCanvas, false);
+               // Draw canvas border for the first time.
+               resizeCanvas();
+            }
+    
+           
+            function redraw() {
+               
+                
+
+            //A=htmlCanvas.width*0.042, htmlCanvas.height*0.466
+             //B=htmlCanvas.width*0.135, htmlCanvas.height*0.466
+            //C=htmlCanvas.width*0.042, htmlCanvas.height*0.375
+            //D=htmlCanvas.width*0.1, htmlCanvas.height*0.378
+            //E=htmlCanvas.width*0.1, htmlCanvas.height*0.317
+             //F=htmlCanvas.width*0.151, htmlCanvas.height*0.259
+            //G=htmlCanvas.width*0.222, htmlCanvas.height*0.224
+            //H=htmlCanvas.width*0.195, htmlCanvas.height*0.13
+            //I=htmlCanvas.width*0.245, htmlCanvas.height*0.13
+            //J=htmlCanvas.width*0.259, htmlCanvas.height*0.047
+            //K=htmlCanvas.width*0.419, htmlCanvas.height*0.15
+            //L=htmlCanvas.width*0.419, htmlCanvas.height*0.205
+            //M=htmlCanvas.width*0.419, htmlCanvas.height*0.278
+            //N=htmlCanvas.width*0.419, htmlCanvas.height*0.36
+            //O=htmlCanvas.width*0.419, htmlCanvas.height*0.432
+            //P=htmlCanvas.width*0.385, htmlCanvas.height*0.487
+            //Q=htmlCanvas.width*0.35, htmlCanvas.height*0.432
+            //R=htmlCanvas.width*0.232, htmlCanvas.height*0.378
+            ctx.arc(htmlCanvas.width*points[startPoint]["width"]*2, htmlCanvas.height*points[startPoint]["height"]*2, 20, 0, 2 * Math.PI, false);
+            ctx.moveTo(htmlCanvas.width*points[result[1]]["width"]*2+20, htmlCanvas.height*points[result[1]]["height"]*2)
+            ctx.stroke();
+     for(let i = 1; i < result.length; i++){
+        
+        ctx.arc((htmlCanvas.width*points[result[i]]["width"])*2, htmlCanvas.height*points[result[i]]["height"]*2, 20, 0, 2 * Math.PI, false);
+        if(result[i+1] !== undefined){
+            ctx.moveTo(htmlCanvas.width*points[result[i+1]]["width"]*2+20, htmlCanvas.height*points[result[i+1]]["height"]*2)
+
+        }
+        ctx.stroke();
+    }
+            
+            // To use the custom size we'll have to specify the scale parameters 
+            // using the element's width and height properties - lets draw one 
+            // on top in the corner:
+       
+            ctx.drawImage(img, 0, 0, img.width, img.height);
+           
+            
+
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = '#00ff00';
+            ctx.stroke();
+            }
+            
+    
+            // Runs each time the DOM window resize event fires.
+            // Resets the canvas dimensions to match window,
+            // then draws the new borders accordingly.
+            function resizeCanvas() {
+                if(window.innerWidth > 800){
+                htmlCanvas.width = window.innerWidth/2;
+                htmlCanvas.height = window.innerHeight/2;
+                img.width = window.innerWidth/2
+                img.height = window.innerHeight/2
+                redraw();
+                }
+                else{
+                    htmlCanvas.width = window.innerWidth;
+                htmlCanvas.height = window.innerHeight;
+                img.width = window.innerWidth
+                img.height = window.innerHeight
+                redraw();
+                }
+            }
+           var animate = function(width,height){
+            var canvas = document.querySelector('canvas'),
+            context = canvas.getContext('2d');
+
+        
+        // save the state of  the canvas here
+        //var imageData = context.getImageData(0,0,canvas.width,canvas.height);
+        
+        // draw a red rectangle that we'll get rid of in a second
+        ctx.moveTo(htmlCanvas.width*width*2+35, htmlCanvas.height*height*2)
+
+       context.arc(canvas.width*width*2, canvas.height*height*2, 35, 0, 2 * Math.PI, false);
+       ctx.lineWidth = 3;
+            ctx.strokeStyle = 'blue';
+            ctx.stroke();
+            
+        setTimeout(function () {
+        // return the canvas to the state right after we drew the blue rect
+        resizeCanvas()  
+        }, 2000);
+        
+            }
+            return animate
+       
+    }*/
+       function Draw(testing){
+        var img = document.getElementById("varikartta");
+        var cnvs = document.getElementById("myCanvas");
+        
+        cnvs.style.position = "absolute";
+        cnvs.style.left = img.offsetLeft + "px";
+        cnvs.style.top = img.offsetTop + "px";
+        
+        var ctx = cnvs.getContext("2d");
+        ctx.beginPath();
+        ctx.arc(250, 210, 200, 0, 2 * Math.PI, false);
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = '#00ff00';
+        ctx.stroke();
+      }
+
+
+          var pysakit = [ "A","B",  "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R"]
+    var tiet = [ { "mista": "A", "mihin": "B", "kesto": 3 },{ "mista": "B","mihin": "D","kesto": 2},{ "mista": "D", "mihin": "A", "kesto": 1},
+    {"mista": "A", "mihin": "C", "kesto": 1},{ "mista": "C","mihin": "D", "kesto": 5},{ "mista": "C", "mihin": "E", "kesto": 2},
+    {"mista": "E", "mihin": "D", "kesto": 3 }, { "mista": "E","mihin": "F", "kesto": 1},{ "mista": "F", "mihin": "G", "kesto": 1},
+     {"mista": "G", "mihin": "H", "kesto": 2},{ "mista": "H", "mihin": "I", "kesto": 2},{ "mista": "I", "mihin": "J", "kesto": 1},
+     {"mista": "I", "mihin": "G", "kesto": 1}, {"mista": "G","mihin": "K","kesto": 8},{ "mista": "K","mihin": "L", "kesto": 1},
+    {"mista": "L","mihin": "M","kesto": 1},{ "mista": "E","mihin": "M", "kesto": 10},{ "mista": "M","mihin": "N","kesto": 2 },
+    {"mista": "N", "mihin": "O", "kesto": 2},{"mista": "O", "mihin": "P","kesto": 2},{"mista": "O","mihin": "Q","kesto": 1},
+    { "mista": "P","mihin": "Q", "kesto": 2},{"mista": "N","mihin": "Q","kesto": 1},{"mista": "Q","mihin": "R","kesto": 5},
+    {"mista": "R", "mihin": "N", "kesto": 3},{"mista": "D", "mihin": "R","kesto": 6 }]
+
+   
+        /*const graph = {"start":{},
+        "A" : {"B": 3, "C": 1, "D" : 1},
+    "B":{"A" : 3, "D" : 2},
+"C" :{"A": 1, "D": 5, "E" : 2},
+"D": {"B" : 2, "A": 1, "C" : 5, "E" :3, "R": 6},
+"E": {"C": 2, "D" : 3, "F": 1, "M":10},
+"F": {"E": 1, "G": 1},
+"G": {"F": 1, "H":2, "I": 1, "K": 8},
+"H": {"G":2, "I": 2},
+"I" : {"H": 2, "J": 1, "G": 1},
+"J" : {"I" :1 },
+"K": {"G": 8, "L": 1},
+"L": {"K": 1, "M" : 1},
+"M": {"L":1, "E": 10, "N": 2},
+"N": {"M": 2, "O":2, "Q":1, "R":3},
+"O": {"N":2, "P": 2, "Q":1},
+"P": {"O": 2, "Q": 2},
+"Q": {"O": 1, "P": 2, "N": 1, "R":5},
+"R": {"Q": 5, "N":3, "D": 6},
+"finish": {}}*/
