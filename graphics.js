@@ -54,8 +54,8 @@ class Graphics
             ctx.strokeStyle = '#00ff00';
             ctx.stroke();
             for(let i = 0; i < result.length; i++){
-                ctx.font = "30px Comic Sans MS";
-                ctx.fillStyle = colors[colorList[i]];
+                ctx.font = "24px Comic Sans MS";
+               // ctx.fillStyle = colors[colorList[i]];
                 ctx.textAlign = "center";
                 var str = (i+1).toString();
                 ctx.fillText(str,(htmlCanvas.width*points[result[i]]["width"])*2+20, htmlCanvas.height*points[result[i]]["height"]*2, 20, 0, 2 * Math.PI, false);
@@ -98,12 +98,21 @@ class Graphics
                 ctx.strokeStyle = '#00ff00';
                 ctx.stroke();
                 for(let i = 0; i < result.length; i++){
-                    ctx.font = "30px Comic Sans MS";
-                    ctx.fillStyle = colors[colorList[i]];
+                    ctx.font = "24px Comic Sans MS";
+                  //  ctx.fillStyle = colors[colorList[i]];
                     ctx.textAlign = "center";
                     var str = (i+1).toString();
-                    ctx.fillText(str,(htmlCanvas.width*points[result[i]]["width"])*2+20, htmlCanvas.height*points[result[i]]["height"], 20, 0, 2 * Math.PI, false);
+                    if(i === 0){
+                        ctx.fillText("Lähtö",(htmlCanvas.width*points[result[i]]["width"])*2+25, htmlCanvas.height*points[result[i]]["height"], 40, 0, 2 * Math.PI, false);
 
+                    }
+                    else if(i === result.length-1){
+                        ctx.fillText("Määränpää",(htmlCanvas.width*points[result[i]]["width"])*2+25, htmlCanvas.height*points[result[i]]["height"], 50, 0, 2 * Math.PI, false);
+
+                    }
+                    else{
+                    ctx.fillText(str,(htmlCanvas.width*points[result[i]]["width"])*2+20, htmlCanvas.height*points[result[i]]["height"], 20, 0, 2 * Math.PI, false);
+                    }
                     if(result[i+1] !== undefined){
                         ctx.moveTo(htmlCanvas.width*points[result[i+1]]["width"]*2+20, htmlCanvas.height*points[result[i+1]]["height"])
             

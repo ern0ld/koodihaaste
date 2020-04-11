@@ -9,6 +9,38 @@ html,body{
     height: 100%;
 }
 
+.h1{
+    color : #c7273e;
+}
+ol {
+    list-style: none;
+    padding: 0;
+    background-color: #c7273e;
+    border: 1px;
+    margin-left: 10px;
+    padding-top: 10px;
+    width:100%;
+    text-align: center;
+  }
+  li {
+      text-align: left;
+      width:100%;
+    padding: 6px;
+    right: 100px;
+    background-color: #c7273e;
+    border-radius: 1px solid black;
+    border-style: solid;
+   
+  }
+  li button{
+    border-radius: 12px;
+    float: right;
+    padding-left: 10px;
+    background-color:white;
+    text-decoration-color: black;
+
+}
+
 
 @media only screen and (min-width: 600px){
 
@@ -23,11 +55,12 @@ html,body{
         overflow-x: hidden;
         transition: 0.5s;
         padding-top: 60px;
-     
+        float: right;
+
       }
       
       .sidenav a {
-        padding: 8px 8px 8px 32px;
+        padding: 8px 8px 8px 8px;
         text-decoration: none;
         font-size: 25px;
         color: #818181;
@@ -59,18 +92,22 @@ html,body{
  
 }
 #reittihaku{
-    float: left;
+    margin-right: 10px;
+    position: fixed;
 }}
 @media only screen and (max-width: 600px){
     
     .sidenav {
         height: 100%;
+
         width: 0%;
         position: fixed;
         z-index: 1;
         bottom: 0;
         right: 0;
         background-color: #111;
+        background-color: #c7273e;
+
         overflow-x: hidden;
         transition: 0.5s;
         padding-top: 60px;
@@ -78,6 +115,7 @@ html,body{
       
       .sidenav a {
         padding: 8px 8px 8px 32px;
+        
         text-decoration: none;
         font-size: 25px;
         color: #818181;
@@ -119,8 +157,9 @@ html,body{
     }
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
-.h1{
-    color : red;
+
+label{
+    font-size: 12px;
 }
 .kartta{
     float: bottom;

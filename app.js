@@ -1,5 +1,5 @@
 var startPoint
-const parents = { };
+const parents = {};
 const weight = {};
 var storage = new Storage();
 var allowed = /[A-Ra-r]/
@@ -15,11 +15,10 @@ const width = window.innerWidth;
     let guideList = document.getElementById("guidelist")
 
     var graphics= new Graphics()
-    //var showMapBtn = document.getElementById("showMapBtn")
-    //showMapBtn.onclick =graphics.drawPlainMap
+    
     
     function calculate(){
-       // showMapBtn.hidden = true;
+
     const graph = storage.getGraph()
     const parents = {};
     const weight = {};
@@ -88,7 +87,9 @@ const width = window.innerWidth;
          if(window.innerWidth > 600){
             guideList.hidden = true;
          }
-          
+         var resultText = document.createElement("h4")
+         guideList.innerHTML =tulos.innerHTML;
+         guideList.appendChild(resultText)
           for(let i = 0; i < toReturn.length; i++){
             var ohje = document.createElement("h4")
             var button = document.createElement("button")
@@ -99,11 +100,17 @@ const width = window.innerWidth;
             reittiDiv.appendChild(button)
             
             var listButton = document.createElement("button")
+            listButton.className = "button"
             var listOhje = document.createElement('label')
             var listItem = document.createElement("li")
-        
-            listButton.innerHTML = "Näytä kartalla"
-           
+            if(i ===0){
+                listItem.className = "li"
+            }
+            else{
+                listItem.className = "linumber"
+            }
+            listButton.innerHTML = "Näytä"
+           listItem.style.paddingBottom = "10px"
             listButton.onclick= function(){ if (document.getElementById("mySidenav").style.width==="0px" || document.getElementById("mySidenav").style.width === undefined){openNav()}animator(toReturn,colorList[i],points[result[i]]["width"],points[result[i]]["height"],points[result[i+1]]["width"],points[result[i+1]]["height"])}
             listOhje.innerHTML = toReturn[i]
             listItem.appendChild(listOhje)
@@ -131,6 +138,8 @@ const width = window.innerWidth;
         
         var size = window.innerWidth >600 ? window.innerWidth/2 : window.innerWidth;
         document.getElementById("mySidenav").style.width = size+"px"
+        document.getElementById("reittihaku").style.marginRight = window.innerWidth/2+"px";
+
         //document.getElementById("main").style.marginLeft = "250px";
         calculated ? null: new Graphics().drawPlainMap();
         window.addEventListener('resize', resizeSideNav, false);
@@ -138,6 +147,8 @@ const width = window.innerWidth;
             if(window.innerWidth > 600){
             newSize = window.innerWidth/2;
             guideList.hidden = true;
+           document.getElementById("reittihaku").style.marginRight = window.innerWidth/2+"px";
+
             reSizeLarge(newSize);
             }
             else{
