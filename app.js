@@ -4,6 +4,8 @@ const weight = {};
 var storage = new Storage();
 var allowed = /[A-Ra-r]/
 var calculated = false;
+const height= window.innerHeight;
+const width = window.innerWidth;
     
     var linjastot = storage.getLines();
 
@@ -57,7 +59,7 @@ var calculated = false;
 
         //dijkstran algoritmi laskee nopeimman reitin graafin painotusten perusteella
       var calc = dijkstra(graph,weight,parents)
-        
+
           tulos.innerHTML = "Lyhimmän matkan kesto yhteensä " + calc["distance"] + " aikayksikköä"
           var result = calc["path"]
           var linjastoKeys = Object.keys(linjastot)
@@ -139,9 +141,12 @@ var calculated = false;
             reSizeLarge(newSize);
             }
             else{
+                if(width !== window.innerWidth){
               newSize = window.innerWidth;
               guideList.hidden =false;
             reSizeSmall(newSize);
+                }
+                return null;
             }
         }
         function reSizeLarge(newSize){
