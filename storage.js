@@ -50,4 +50,39 @@ constructor(){}
       "sininen": ["D", "E", "M", "N", "O"]
     }
     }
+    testing(){
+       var tiet= [{ "mista": "A","mihin": "B", "kesto": 3}, {"mista": "B", "mihin": "D","kesto": 2 },
+            { "mista": "D","mihin": "A", "kesto": 1 },{"mista": "A","mihin": "C", "kesto": 1},
+            {"mista": "C","mihin": "D", "kesto": 5},{"mista": "C","mihin": "E","kesto": 2},
+            { "mista": "E","mihin": "D", "kesto": 3},{ "mista": "E","mihin": "F", "kesto": 1},
+        {"mista": "F", "mihin": "G", "kesto": 1 }, { "mista": "G", "mihin": "H","kesto": 2 },
+{"mista": "H", "mihin": "I", "kesto": 2 },{ "mista": "I","mihin": "J","kesto": 1},
+    { "mista": "I","mihin": "G","kesto": 1 },{"mista": "G","mihin": "K","kesto": 8},
+    { "mista": "K", "mihin": "L","kesto": 1 }, {"mista": "L", "mihin": "M", "kesto": 1 },
+        {"mista": "E", "mihin": "M", "kesto": 10},{ "mista": "M","mihin": "N","kesto": 2},
+     {"mista": "N","mihin": "O","kesto": 2},{"mista": "O","mihin": "P", "kesto": 2},
+    {"mista": "O","mihin": "Q", "kesto": 1},{"mista": "P","mihin": "Q", "kesto": 2},
+{ "mista": "N","mihin": "Q","kesto": 1},{ "mista": "Q","mihin": "R","kesto": 5},
+    {"mista": "R","mihin": "N","kesto": 3},{"mista": "D","mihin": "R","kesto": 6}]
+    var graph = {"start" : {}}
+
+    for(let i = 0; i < tiet.length; i++){
+
+        if(graph[tiet[i]["mista"]] === undefined){
+            graph[tiet[i]["mista"]] = {}
+            graph[tiet[i]["mista"]][tiet[i]["mihin"]] = tiet[i]["kesto"] 
+
+        }
+        if(graph[tiet[i]["mihin"]] === undefined){
+            graph[tiet[i]["mihin"]] = {}
+            graph[tiet[i]["mihin"]][tiet[i]["mista"]] = tiet[i]["kesto"] 
+
+        }
+        graph[tiet[i]["mihin"]][tiet[i]["mista"]] = tiet[i]["kesto"] 
+            graph[tiet[i]["mista"]][tiet[i]["mihin"]] = tiet[i]["kesto"] 
+    }
+    graph["finish"] ={};
+
+    }
+   
   }

@@ -2,8 +2,11 @@ var startPoint
 const parents = {};
 const weight = {};
 var storage = new Storage();
+storage.testing();
+console.log(storage.getGraph())
 var allowed = /[A-Ra-r]/
 var calculated = false;
+var closedNav = true;
 const height= window.innerHeight;
 const width = window.innerWidth;
     
@@ -118,10 +121,6 @@ const width = window.innerWidth;
             
             guideList.appendChild(listItem)
     
-            
-           
-
-
           }
           var animator = graphics.drawImage(result,startPoint,points,colorList,toReturn)
         calculated = true;
@@ -135,16 +134,17 @@ const width = window.innerWidth;
   
     }
     function openNav() {
-        
+        closedNav= false;
         var size = window.innerWidth >600 ? window.innerWidth/2 : window.innerWidth;
         document.getElementById("mySidenav").style.width = size+"px"
-        document.getElementById("reittihaku").style.marginRight = window.innerWidth/2+"px";
 
         //document.getElementById("main").style.marginLeft = "250px";
         calculated ? null: new Graphics().drawPlainMap();
         window.addEventListener('resize', resizeSideNav, false);
         function resizeSideNav() {
             if(window.innerWidth > 600){
+                document.getElementById("reittihaku").style.marginRight = window.innerWidth/2+"px";
+
             newSize = window.innerWidth/2;
             guideList.hidden = true;
            document.getElementById("reittihaku").style.marginRight = window.innerWidth/2+"px";
@@ -154,23 +154,34 @@ const width = window.innerWidth;
             else{
                 if(width !== window.innerWidth){
               newSize = window.innerWidth;
+
               guideList.hidden =false;
             reSizeSmall(newSize);
                 }
                 else{
-                return null;
+                return -1;
             }}
         }
         function reSizeLarge(newSize){
+           
         document.getElementById("mySidenav").style.width = newSize+"px"
+
         }
         function reSizeSmall(newSize){
+            if(!closedNav){
         document.getElementById("mySidenav").style.width = newSize+"px"
+        document.getElementById("reittihaku").style.width = window.innerWidth+"px";}
+
+        else{
+            document.getElementById("reittihaku").style.width = window.innerWidth+"px";}
+
         }
+
 
       }
       
       function closeNav() {
+          closedNav = true;
         document.getElementById("mySidenav").style.width = "0";
        // document.getElementById("main").style.marginLeft= "0";
       }
@@ -187,7 +198,6 @@ const width = window.innerWidth;
            
         }
     function drawPlainMap(){
-        console.log("moi")
         
     }
 

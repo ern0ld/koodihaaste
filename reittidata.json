@@ -154,7 +154,9 @@
   "linjastot": {
     "keltainen": ["E", "F", "G", "K", "L", "M", "N"],
     "punainen": ["C", "D", "R", "Q", "N", "O", "P"],
-    "vihreä": ["D", "B", "A", "C", "E", "F", "G", "H", "I", "J"],
+    "vihreï¿½": ["D", "B", "A", "C", "E", "F", "G", "H", "I", "J"],
     "sininen": ["D", "E", "M", "N", "O"]
   }
 }
+
+

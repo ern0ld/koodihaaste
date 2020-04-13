@@ -1,7 +1,7 @@
 class Graphics
-{ 
+{      
+
     constructor(){
-      
     }
 
 
@@ -30,42 +30,47 @@ class Graphics
     
            
             function redraw() {
-        
-               var imgWidth = parseInt(document.getElementById("mySidenav").style.width)
-          /* ctx.arc(htmlCanvas.width*points[startPoint]["width"]*2, htmlCanvas.height*points[startPoint]["height"]*2, 20, 0, 2 * Math.PI, false);
-            ctx.moveTo(htmlCanvas.width*points[result[1]]["width"]*2+20, htmlCanvas.height*points[result[1]]["height"]*2)
-            ctx.stroke();
+                var imgWidth = parseInt(document.getElementById("mySidenav").style.width)
+                ctx.drawImage(img, 0, 0, imgWidth, img.height);
+                ctx.lineWidth = 3;
+                ctx.beginPath();
+                ctx.strokeStyle = colors[colorList[0]];
+               
+           ctx.arc(htmlCanvas.width*points[startPoint]["width"]*2, htmlCanvas.height*points[startPoint]["height"]*2, 20, 0, 2 * Math.PI, false);
+           ctx.moveTo(htmlCanvas.width*points[result[1]]["width"]*2+20, htmlCanvas.height*points[result[1]]["height"]*2)
+           ctx.stroke();
+ctx.closePath();
      for(let i = 1; i < result.length; i++){
-        
-
+         ctx.beginPath();
+        ctx.strokeStyle = colors[colorList[i]];
         ctx.arc((htmlCanvas.width*points[result[i]]["width"])*2, htmlCanvas.height*points[result[i]]["height"]*2, 20, 0, 2 * Math.PI, false);
+        
         
         if(result[i+1] !== undefined){
             ctx.moveTo(htmlCanvas.width*points[result[i+1]]["width"]*2+20, htmlCanvas.height*points[result[i+1]]["height"]*2)
 
         }
-        
+       
+        ctx.closePath();
         ctx.stroke();
-    }*/
-        
+    }
     
-            ctx.drawImage(img, 0, 0, imgWidth, img.height);
-            ctx.lineWidth = 3;
-            ctx.strokeStyle = '#00ff00';
-            ctx.stroke();
+    ctx.beginPath();
+            
             for(let i = 0; i < result.length; i++){
                 ctx.font = "24px Comic Sans MS";
                // ctx.fillStyle = colors[colorList[i]];
                 ctx.textAlign = "center";
                 var str = (i+1).toString();
-                ctx.fillText(str,(htmlCanvas.width*points[result[i]]["width"])*2+20, htmlCanvas.height*points[result[i]]["height"]*2, 20, 0, 2 * Math.PI, false);
+                ctx.fillText(str,(htmlCanvas.width*points[result[i]]["width"])*2+30, htmlCanvas.height*points[result[i]]["height"]*2, 20, 0, 2 * Math.PI, false);
                 
                 if(result[i+1] !== undefined){
-                    ctx.moveTo(htmlCanvas.width*points[result[i+1]]["width"]*2+20, htmlCanvas.height*points[result[i+1]]["height"]*2)
+                    ctx.moveTo(htmlCanvas.width*points[result[i+1]]["width"]*2+30, htmlCanvas.height*points[result[i+1]]["height"]*2)
         
                 }
                 
                 ctx.stroke();
+                
             }
           
             }
@@ -186,7 +191,7 @@ context.stroke();
         
             }
             function canvas_arrow(context, fromx, fromy, tox, toy) {
-                var headlen = 30; // length of head in pixels
+                var headlen = 20; // length of head in pixels
                 var dx = tox - fromx;
                 var dy = toy - fromy;
                 var angle = Math.atan2(dy, dx);
@@ -204,7 +209,6 @@ context.stroke();
         var img = new Image(640,480)
         img.onload = initialize;
         img.src = "varikartta.png"
-        
             var htmlCanvas = document.getElementById("myCanvas");
             var ctx = htmlCanvas.getContext("2d");
     
@@ -212,6 +216,7 @@ context.stroke();
            function initialize() {
                window.addEventListener('resize', resizeCanvas, false);
                resizeCanvas();
+               showInfo();
             }
     
            
@@ -246,6 +251,75 @@ context.stroke();
                 redrawSmall();
                 }
             }
+            function showInfo(){
+                
+                var infoCanvas = document.getElementById("infoCanvas");
+                var htmlCanvas = document.getElementById("myCanvas");
+                var points = new Storage().getPoints();
+                var result = ["A","D","R"];
+                var infoContext = infoCanvas.getContext("2d");
+                
+                var context = htmlCanvas.getContext("2d");
+                //canvas_arrow(infoContext,htmlCanvas.width/2, 0,htmlCanvas.width/2-100,200);
+           
+                infoCanvas.width = window.innerWidth/2;
+               infoCanvas.height = window.innerHeight/4;
+                infoContext.lineWidth = 3;
+                infoContext.moveTo(0,0)
+                   infoContext.font = "20px Arial";
+                   infoContext.fillStyle = 'white';
+         
+                  var text ="Tervetuloa reittihakuun. Yllä näet esimerkin haun tuloksesta kartalla. Lähtöpisteenä A ja päätepisteenä R"
+                  var text2 = "Haun tulokset tulevat näkyviin eriteltynä listana, joista jokaista etappia voi tarkastella erikseen"
+                    infoContext.textAlign = "center";
+                    infoContext.fillText(text, 300, 50,infoCanvas.width-100, 0, 2 * Math.PI, false);
+                    infoContext.moveTo(0,0)
+
+                    infoContext.stroke();
+                    infoContext.fillText(text2,300, 100, infoCanvas.width-100, 0, 2 * Math.PI, false);
+
+                    infoContext.stroke();
+
+
+               // Context.arc(htmlCanvas.width*points[startPoint]["width"]*2, htmlCanvas.height*points[startPoint]["height"], 20, 0, 2 * Math.PI, false);
+                //context.moveTo(htmlCanvas.width*points[result[1]]["width"]*2+20, htmlCanvas.height*points[result[1]]["height"])
+         for(let i = 0; i < result.length; i++){
+            
+            context.arc((htmlCanvas.width*points[result[i]]["width"])*2, htmlCanvas.height*points[result[i]]["height"]*2, 20, 0, 2 * Math.PI, false);
+            if(result[i+1] !== undefined){
+                context.moveTo(htmlCanvas.width*points[result[i+1]]["width"]*2+20, htmlCanvas.height*points[result[i+1]]["height"]*2)
+    
+            }
+            context.stroke()
+           // ctx.font = "24px Comic Sans MS";
+            // ctx.fillStyle = colors[colorList[i]];
+             context.textAlign = "center";
+             context.font = "24px Comic Sans MS";
+           
+             var str = (i+1).toString();
+             context.fillText(str,(htmlCanvas.width*points[result[i]]["width"])*2+30, htmlCanvas.height*points[result[i]]["height"]*2, 20, 0, 2 * Math.PI, false);
+             
+            
+            context.stroke();
+        }
+                        setTimeout(function () {
+                        // return the canvas to the state right after we show the arrow
+                        resizeCanvas()  
+                        infoContext.clearRect(0,0,infoCanvas.width,infoCanvas.height)
+                  
+                        }, 10000);
+            }
+            function canvas_arrow(context, fromx, fromy, tox, toy) {
+                var headlen = 30; // length of head in pixels
+                var dx = tox - fromx;
+                var dy = toy - fromy;
+                var angle = Math.atan2(dy, dx);
+                context.moveTo(fromx, fromy);
+                context.lineTo(tox, toy);
+                context.lineTo(tox - headlen * Math.cos(angle - Math.PI / 6), toy - headlen * Math.sin(angle - Math.PI / 6));
+                context.moveTo(tox, toy);
+                context.lineTo(tox - headlen * Math.cos(angle + Math.PI / 6), toy - headlen * Math.sin(angle + Math.PI / 6));
+              }
             
     }
     
