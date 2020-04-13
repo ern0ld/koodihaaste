@@ -100,12 +100,11 @@ ol {
 }
 #reittihaku{
     margin-left: 10px;
+    padding-right: 10px;
     overflow: auto;
 }}
 @media only screen and (max-width: 600px){
-    body{
-        overflow: hidden;
-    }
+  
     .kartta{
     float: top;
     position: fixed;
