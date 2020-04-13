@@ -132,10 +132,10 @@ const width = window.innerWidth;
         document.body.style.overflow = "hidden";
         var size = window.innerWidth >600 ? window.innerWidth/2 : window.innerWidth;
         document.getElementById("mySidenav").style.width = size+"px"
-        document.getElementById("reittihaku").style.marginRight = size-20+"px";
+        window.innerWidth >600 ? document.getElementById("reittihaku").style.marginRight = size-20+"px" :  document.getElementById("reittihaku").style.paddingRight ="10px"
 
         //document.getElementById("main").style.marginLeft = "250px";
-        calculated ? null: new Graphics().drawPlainMap();
+        calculated ? console.log("on jo piirretty"): new Graphics().drawPlainMap();
         window.addEventListener('resize', resizeSideNav, false);
         function resizeSideNav() {
             if(window.innerWidth > 600){

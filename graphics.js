@@ -72,7 +72,7 @@ ctx.closePath();
                 ctx.stroke();
                 
             }
-          
+
             }
             function redrawSmall() {
                
@@ -98,7 +98,7 @@ ctx.closePath();
                 ctx.drawImage(img,0 , 0, img.width, img.height);
                
                 
-    
+        
                 ctx.lineWidth = 3;
                 ctx.strokeStyle = '#00ff00';
                 ctx.stroke();
