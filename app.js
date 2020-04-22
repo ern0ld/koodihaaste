@@ -17,7 +17,7 @@ var reittiDiv = document.getElementById("reittihaku")
 var infoDiv = document.getElementById("infoDiv")
     var graphics= new Graphics()
     var showMapBtn = document.getElementById("showMap")
-    
+    var infoDivResultHeader= document.getElementById("infoDivResultHeader")
     async function calculate(){
 
     const graph = storage.getGraph()
@@ -85,7 +85,7 @@ var infoDiv = document.getElementById("infoDiv")
               var ohje = document.createElement("h3")
                // ohje.innerHTML = "Valitse "+ colorList[i-1]+" linja ja matkusta kohteeseen " + result[i]
                 let time = graph[result[i]][result[i+1]];
-                var str = "Valitse "+ colorList[i]+" linja ja matkusta kohteesta "+ key + " kohteeseen " + result[i+1] +". " + "Matkan kesto " + time  + " aikayksikköä. "
+                var str = (i+1).toString()+". Valitse "+ colorList[i]+" linja ja matkusta kohteesta "+ key + " kohteeseen " + result[i+1] +". " + "Matkan kesto " + time  + " aikayksikköä. "
                     toReturn.push(str)
                     key = result[i+1]
           }
@@ -136,7 +136,7 @@ var infoDiv = document.getElementById("infoDiv")
           }
           
           routeInfoDiv.appendChild(uList)
-          infoDiv.appendChild(routeInfoDiv)
+         // infoDiv.appendChild(routeInfoDiv)
           reittiDiv.appendChild(routeInfoDiv)
           var animator = graphics.drawImage(result,startPoint,points,colorList,toReturn)
         calculated = true;
@@ -166,7 +166,7 @@ var infoDiv = document.getElementById("infoDiv")
               //  document.getElementById("reittihaku").style.marginRight = window.innerWidth/2+"px";
 
             newSize = window.innerWidth/2;
-            guideList.hidden = true;
+            infoDiv.hidden = true;
 
             reSizeLarge(newSize);
            
@@ -178,7 +178,7 @@ var infoDiv = document.getElementById("infoDiv")
                 if(width !== window.innerWidth){
               newSize = window.innerWidth;
                    
-             guideList.hidden =false;
+             infoDiv.hidden =false;
             reSizeSmall(newSize);
                 }
                 else{
