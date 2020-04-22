@@ -13,40 +13,11 @@ html,body{
 .h1{
     color : #c7273e;
 }
-ol {
-    list-style: none;
-    padding: 0;
-    border: 1px;
-    margin-left: 10px;
-    padding-top: 10px;
-    width:100%;
-    text-align: center;
-  }
-  li {
-      display: table;
-      text-align: left;
-      width:100%;
-    padding: 6px;
-    right: 100px;
-    background-color: #c7273e;
-    border-radius: 1px solid black;
-    border-style: solid;
-   
-  }
-  li label{
-    font-size: 2.5vw;
-  }
-  li button{font-size:3 vw;
-    border-radius: 12px;
-    display: inline-block;
-    vertical-align: middle;
-    text-align: center;
-    padding-left: 10px;
-    background-color:white;
-    text-decoration-color: black;
-
+#reittihaku{
+  margin-left: 10px;
+  margin-right: 20px;
+  overflow: auto;
 }
-
 
 @media only screen and (min-width: 600px){
 
@@ -59,6 +30,7 @@ ol {
         right: 0;
         background-color: #111;
         overflow-x: hidden;
+       
         transition: 0.5s;
         padding-top: 60px;
         float: right;
@@ -98,13 +70,34 @@ ol {
     
  
 }
-#reittihaku{
-    margin-left: 10px;
-    padding-right: 10px ;
-    overflow: auto;
-}}
+h4{
+  font-size:1.5vw;
+}
+
+label{
+  font-size:2.5vw;
+}
+.searchTerms{
+  overflow: auto;
+
+}
+.searchTerms label{
+  font-size: 2vw;
+}
+}
 @media only screen and (max-width: 600px){
+ 
+  body::-webkit-scrollbar {
+    width: 0.25rem;
+  }
   
+ body::-webkit-scrollbar-track {
+    background: #1e1e24;
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background: #c7273e;;
+  }
     .kartta{
     float: top;
     position: fixed;
@@ -180,7 +173,7 @@ label{
   }
   
  .instructions::-webkit-scrollbar-track {
-    background: #1e1e24;
+    background: #111;
   }
   
   .instructions::-webkit-scrollbar-thumb {
@@ -190,12 +183,60 @@ label{
 .instructions{
     
     height:50%;
-  left:0px;
+    padding-left:1px;
     margin-top: 20px;
     float:bottom;
     overflow:scroll;
-    padding-right:30px;
+    padding-right:20px;
 
     
 }
+ol {
+  list-style: none;
+  padding: 0;
+  border: 1px;
+  margin-left: 0px;
+  padding-top: 10px;
+  width:100%;
+  text-align: center;
+}
+li {
+    display: table;
+    text-align: left;
+    width:100%;
+  padding: 6px;
+  right: 100px;
+  background-color: #c7273e;
+  border-radius: 1px solid black;
+  border-style: solid;
+  padding-bottom: 10px;
+
+}
+li label{
+  font-size: 2.5vw;
+}
+li button{
+  
+  
+  border-radius: 12px;
+  vertical-align: middle;
+  text-align: center;
+
+  float: right;
+  padding-left: 10px;
+position: relative;
+top: 5px;
+margin-bottom: 3px;
+font-size:2 vw;
+  background-color:#c7273e;
+  color: white;
+
+}
+
+.searchTerms label{
+  font-size: 5vw;
+
+}
+
+
 }

@@ -7,7 +7,7 @@ var calculated = false;
 var closedNav = true;
 const height= window.innerHeight;
 const width = window.innerWidth;
-    
+var reittiDiv = document.getElementById("reittihaku")
     var linjastot = storage.getLines();
 
     var points = storage.getPoints();
@@ -16,7 +16,7 @@ const width = window.innerWidth;
     let guideList = document.getElementById("guidelist")
 var infoDiv = document.getElementById("infoDiv")
     var graphics= new Graphics()
-    
+    var showMapBtn = document.getElementById("showMap")
     
     function calculate(){
 
@@ -28,10 +28,16 @@ var infoDiv = document.getElementById("infoDiv")
         let endPoint = document.getElementById("endPoint").value.toUpperCase()
         let tulos = document.getElementById("tulos")
 
-       if(document.querySelector("h4") !==null) {
+        if(document.getElementById("routeInfoDiv") !==null){
+            let remove = document.getElementById("routeInfoDiv")
+            remove.parentNode.removeChild(remove)
+    
+           }
+   
+       /*{
            document.querySelectorAll("button").forEach((btn) => {if(btn.className !== "constant") btn.parentNode.removeChild(btn)})
            document.querySelectorAll("h4").forEach((e1) => e1.parentNode.removeChild(e1))
-           document.querySelectorAll("li").forEach((e1) => e1.parentNode.removeChild(e1)) }
+           document.querySelectorAll("li").forEach((e1) => e1.parentNode.removeChild(e1)) }*/
 
         if(!allowed.test(startPoint) || startPoint.length >1 || !allowed.test(endPoint) || endPoint.length>1){
             alert("Varmista, että lähtö- ja päätepiste ovat kirjaimia väliltä A-R")
@@ -67,38 +73,44 @@ var infoDiv = document.getElementById("infoDiv")
           document.createElement("h3").innerHTML = "Reittiohjeet"
        
         
-        var reittiDiv = document.getElementById("reittihaku")
+      
         var toReturn = [];
         var key = startPoint;
         result.shift()
         result.unshift(startPoint)
         result.pop()
-        
+       
 
           for(let i =0; i < result.length-1; i++){
               var ohje = document.createElement("h3")
                // ohje.innerHTML = "Valitse "+ colorList[i-1]+" linja ja matkusta kohteeseen " + result[i]
                 let time = graph[result[i]][result[i+1]];
-                var str = "Valitse "+ colorList[i]+" linja ja matkusta kohteesta "+ key + " kohteeseen " + result[i+1] +". Matkan kesto " + time  + " aikayksikköä. "
+                var str = "Valitse "+ colorList[i]+" linja ja matkusta kohteesta "+ key + " kohteeseen " + result[i+1] +". " + "Matkan kesto " + time  + " aikayksikköä. "
                     toReturn.push(str)
                     key = result[i+1]
           }
           
-          
-         if(window.innerWidth > 600){
+           
+          if(window.innerWidth > 600){
             guideList.hidden = true;
          }
          var resultText = document.createElement("h4")
          guideList.innerHTML =tulos.innerHTML;
          guideList.appendChild(resultText)
+         let routeInfoDiv = document.createElement("div")
+         routeInfoDiv.id = "routeInfoDiv"
+         let uList = document.createElement("ol")
+         uList.appendChild(tulos)
+         let enter = document.createElement("br")
           for(let i = 0; i < toReturn.length; i++){
             var ohje = document.createElement("h4")
             var button = document.createElement("button")
             button.innerHTML = "Näytä kartalla"
             button.onclick= function(){ if (document.getElementById("mySidenav").style.width==="0px" || document.getElementById("mySidenav").style.width === undefined){openNav()}animator(toReturn,colorList[i],points[result[i]]["width"],points[result[i]]["height"],points[result[i+1]]["width"],points[result[i+1]]["height"])}
             ohje.innerHTML = toReturn[i]
-            reittiDiv.appendChild(ohje)
-            reittiDiv.appendChild(button)
+            uList.appendChild(ohje) 
+            uList.appendChild(button)
+           
             
             var listButton = document.createElement("button")
             listButton.className = "button"
@@ -110,8 +122,8 @@ var infoDiv = document.getElementById("infoDiv")
             else{
                 listItem.className = "linumber"
             }
-            listButton.innerHTML = "Näytä"
-           listItem.style.paddingBottom = "10px"
+            listButton.innerHTML = "Näytä >>>"
+          // listItem.style.paddingBottom = "10px"
             listButton.onclick= function(){ if (document.getElementById("mySidenav").style.width==="0px" || document.getElementById("mySidenav").style.width === undefined){openNav()}animator(toReturn,colorList[i],points[result[i]]["width"],points[result[i]]["height"],points[result[i+1]]["width"],points[result[i+1]]["height"])}
             listOhje.innerHTML = toReturn[i]
             listItem.appendChild(listOhje)
@@ -120,6 +132,9 @@ var infoDiv = document.getElementById("infoDiv")
             guideList.appendChild(listItem)
     
           }
+
+          routeInfoDiv.appendChild(uList)
+          reittiDiv.appendChild(routeInfoDiv)
           var animator = graphics.drawImage(result,startPoint,points,colorList,toReturn)
         calculated = true;
         openNav();
@@ -131,16 +146,19 @@ var infoDiv = document.getElementById("infoDiv")
 
     function openNav() {
         closedNav= false;
-        document.body.style.overflow = "hidden";
+    
         var size = window.innerWidth >600 ? window.innerWidth/2 : window.innerWidth;
         document.getElementById("mySidenav").style.width = size+"px"
-        window.innerWidth >600 ? document.getElementById("reittihaku").style.marginRight = size-20+"px" :  document.getElementById("reittihaku").style.paddingRight ="10px"
+      if(window.innerWidth < 600){
+          document.body.style.overflow = "hidden"
+      }
 
         //document.getElementById("main").style.marginLeft = "250px";
-        calculated ? (console.log("on jo piirretty"),infoDiv.hidden =false): (new Graphics().drawPlainMap(), infoDiv.hidden =true);
+        calculated ? (console.log("on jo piirretty"),infoDiv.hidden =false, showMapBtn.innerHTML = "Näytä kartta"): (new Graphics().drawPlainMap(), infoDiv.hidden =true);
         window.addEventListener('resize', resizeSideNav, false);
         function resizeSideNav() {
             if(window.innerWidth > 600){
+          
             //    document.getElementById("reittihaku").style.marginRight = window.innerWidth/2+"px";
               //  document.getElementById("reittihaku").style.marginRight = window.innerWidth/2+"px";
 
@@ -148,10 +166,11 @@ var infoDiv = document.getElementById("infoDiv")
             guideList.hidden = true;
 
             reSizeLarge(newSize);
+           
             }
             else{
                 
-                    
+                document.body.style.overflow = "hidden";
                 
                 if(width !== window.innerWidth){
               newSize = window.innerWidth;
@@ -165,20 +184,29 @@ var infoDiv = document.getElementById("infoDiv")
         }
         function reSizeLarge(newSize){
             if(!closedNav){
+                infoDiv.style.width = window.innerWidth
         document.getElementById("mySidenav").style.width = newSize+"px"
-        document.getElementById("reittihaku").style.width = newSize-20+"px";}
+      //  reittiDiv.style.width = newSize-20+"px";
+    }
+        
         else{
-            document.getElementById("reittihaku").style.width = window.innerWidth+"px";}
+            document.body.style.overflow = "auto"
+          // reittiDiv.style.width = window.innerWidth+"px";
+        }
 
         }
         
         function reSizeSmall(newSize){
             if(!closedNav){
         document.getElementById("mySidenav").style.width = newSize+"px"
-        document.getElementById("reittihaku").style.width = window.innerWidth+"px";}
+       // reittiDiv.style.width = window.innerWidth+"px";
+    }
+    else{
+        document.body.style.overflow = "auto"
 
-        else{
-            document.getElementById("reittihaku").style.width = window.innerWidth+"px";}
+    }
+
+      
 
         }
 
@@ -189,6 +217,7 @@ var infoDiv = document.getElementById("infoDiv")
           closedNav = true;
           document.body.style.overflow = "auto";
         document.getElementById("mySidenav").style.width = "0";
+
        // document.getElementById("main").style.marginLeft= "0";
       }
     function hide(){

@@ -1,3 +1,4 @@
+
 class Graphics
 {      
 
@@ -210,6 +211,7 @@ context.stroke();
     }
     drawPlainMap(){
         var img = new Image(640,480)
+        const storage = new Storage(); 
         img.onload = initialize;
         img.src = "varikartta.png"
             var infoMapCanvas = document.getElementById("infoMapCanvas");
@@ -316,14 +318,14 @@ infoContext.fillText('OK!', infoCanvas.width-75, infoCanvas.height-57);
                var text5 = "joista jokaista etappia voi tarkastella erikseen"
           infoContext.beginPath();
                  infoContext.moveTo(10,400)
-                 infoContext.fillText(text, 10, 400,infoCanvas.width-10, 0, 2 * Math.PI, false);
-                 infoContext.fillText(text2, 10, 430,infoCanvas.width-10, 0, 2 * Math.PI, false);
-                 infoContext.fillText(text3, 10, 460,infoCanvas.width-10, 0, 2 * Math.PI, false);
-                 infoContext.fillText(text4, 10, 520,infoCanvas.width-10, 0, 2 * Math.PI, false);
+                 infoContext.fillText(text, 10, 400,infoCanvas.width-20, 0, 2 * Math.PI, false);
+                 infoContext.fillText(text2, 10, 430,infoCanvas.width-20, 0, 2 * Math.PI, false);
+                 infoContext.fillText(text3, 10, 460,infoCanvas.width-20, 0, 2 * Math.PI, false);
+                 infoContext.fillText(text4, 10, 520,infoCanvas.width-20, 0, 2 * Math.PI, false);
                  infoContext.moveTo(0,0)
             
                  infoContext.stroke();
-                 infoContext.fillText(text5,10,550, infoCanvas.width-10, 0, 2 * Math.PI, false);
+                 infoContext.fillText(text5,10,550, infoCanvas.width-20, 0, 2 * Math.PI, false);
 
                  infoContext.stroke();
                     drawCircles();
@@ -361,7 +363,7 @@ infoContext.fillText('OK!', infoCanvas.width-75, infoCanvas.height-57);
                    infoContext.font = "2vw Times New Roman";
                    infoContext.fillStyle = 'white';
          
-                  var text ="Tervetuloa reittihakuun. Yllä näet esimerkin haun tuloksesta kartalla. Lähtöpisteenä A ja päätepisteenä R"
+                  var text ="Tervetuloa reittihakuun. Yllä näet esimerkin haun tuloksesta kartalla. Lähtöpisteenä A ja päätepisteenä R."
                   var text2 = "Haun tulokset tulevat näkyviin eriteltynä listana, joista jokaista etappia voi tarkastella erikseen"
                   //  infoContext.textAlign = "center";
                   infoContext.beginPath();
@@ -389,30 +391,28 @@ infoContext.fillText('OK!', infoCanvas.width-75, infoCanvas.height-57);
             function drawCircles(){
                 var infoMapCanvas = document.getElementById("infoMapCanvas");
                 
-                var context = infoMapCanvas.getContext("2d");   
-                var points = new Storage().getPoints();
-                var result = ["A","D","R"];
-                context.beginPath(0,0)
-                for(let i = 0; i < result.length; i++){
-            
-            context.arc((infoMapCanvas.width*points[result[i]]["width"])*2, infoMapCanvas.height*points[result[i]]["height"]*2, 20, 0, 2 * Math.PI, false);
-            if(result[i+1] !== undefined){
-                context.moveTo(infoMapCanvas.width*points[result[i+1]]["width"]*2+20, infoMapCanvas.height*points[result[i+1]]["height"]*2)
-    
-            }
-            context.stroke()
-           // ctx.font = "24px Comic Sans MS";
-            // ctx.fillStyle = colors[colorList[i]];
-             context.textAlign = "center";
-             context.font = "2vw Courier";
-           
-             var str = (i+1).toString();
-             context.fillText(str,(infoMapCanvas.width*points[result[i]]["width"])*2+30, infoMapCanvas.height*points[result[i]]["height"]*2, 20, 0, 2 * Math.PI, false);
-             
-            
-            context.stroke();
+                var context = infoMapCanvas.getContext("2d"); 
+                 
+                var points =storage.getPoints();
+                const result = ["A","D","R"];
+                const colorList = ["vihrea", "punainen", "punainen"]
+                const colors = storage.getColors();
         
+     for(let i = 0; i < result.length; i++){
+         context.beginPath();
+        context.strokeStyle = colors[colorList[i]];
+        context.arc((infoMapCanvas.width*points[result[i]]["width"])*2, infoMapCanvas.height*points[result[i]]["height"]*2, 20, 0, 2 * Math.PI, false);
+        
+        
+        if(result[i+1] !== undefined){
+            context.moveTo(infoMapCanvas.width*points[result[i+1]]["width"]*2+20, infoMapCanvas.height*points[result[i+1]]["height"]*2)
+
         }
+       
+        context.closePath();
+        context.stroke();
+    }
+           
         return context;
     }
         

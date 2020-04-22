@@ -31,21 +31,22 @@ rel="stylesheet"
 <h1 class="h1">Reittihaku</h1>
 
 <h2>Syötä lähtöpiste ja päätepiste (Vaihtoehdot A-R)</h2>
+<div class="searchTerms">
 <label for="fname">Lähtöpiste:</label>
 <input type="text" id="startPoint" name="fname"><br><br>
 <label for="lname">Päätepiste:</label>
-<input type="text" id="endPoint" name="lname"><br><br>
+<input type="text" id="endPoint" name="lname"><br><br></div>
 <button id="calculateBtn" class="constant">Hae reitti ja kesto</button>
-<button class="constant" id="showMap" onclick="openNav()">Näytä kartta</button>
+<button class="constant" id="showMap" onclick="openNav()">Näytä kartta ja ohje</button>
 <h2 id="tulos"></h2></div>
 <div class="kartta"><img src="varikartta.png" class="kartta" id="varikartta" alt="" hidden>
-    <canvas id='myCanvas'></canvas></div>
-</br>
-</br>
-</br>
-</br>
-</br>
-</br>
+    <canvas id='myCanvas'></canvas>
+
+
+
+</div>
+
+
 <script src="storage.js"></script>
 <script src="graphics.js"></script>
 <script src="app.js"></script>

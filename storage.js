@@ -42,7 +42,9 @@ constructor(){}
         "Q" :{"width" : 0.35, "height" : 0.432},
         "R" :{"width" : 0.232, "height" : 0.378}}
     }
-
+getColors(){
+    return {"vihrea" : "#22b14c", "keltainen" : "yellow", "sininen" : "blue", "punainen" : "red"}
+}
     getLines(){
         return { "keltainen": ["E", "F", "G", "K", "L", "M", "N"],
       "punainen": ["C", "D", "R", "Q", "N", "O", "P"],
