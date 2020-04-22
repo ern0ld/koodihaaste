@@ -18,6 +18,13 @@ html,body{
   margin-right: 20px;
   overflow: auto;
 }
+.released{
+  width: 90%;
+  margin-left: 10px;
+padding-right: 100px;
+  
+  overflow: auto;
+}
 
 @media only screen and (min-width: 600px){
 
@@ -112,7 +119,7 @@ label{
         z-index: 1;
         bottom: 0;
         right: 0;
-        background-color: #111;
+        background-color: #c7273e;
 
         transition: 0.5s;
         padding-top: 60px;
@@ -183,7 +190,7 @@ label{
 .instructions{
     
     height:50%;
-    padding-left:1px;
+    left: -10px;
     margin-top: 20px;
     float:bottom;
     overflow:scroll;

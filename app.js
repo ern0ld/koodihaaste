@@ -18,7 +18,7 @@ var infoDiv = document.getElementById("infoDiv")
     var graphics= new Graphics()
     var showMapBtn = document.getElementById("showMap")
     
-    function calculate(){
+    async function calculate(){
 
     const graph = storage.getGraph()
     const parents = {};
@@ -98,10 +98,12 @@ var infoDiv = document.getElementById("infoDiv")
          guideList.innerHTML =tulos.innerHTML;
          guideList.appendChild(resultText)
          let routeInfoDiv = document.createElement("div")
+    
          routeInfoDiv.id = "routeInfoDiv"
+         
          let uList = document.createElement("ol")
          uList.appendChild(tulos)
-         let enter = document.createElement("br")
+      
           for(let i = 0; i < toReturn.length; i++){
             var ohje = document.createElement("h4")
             var button = document.createElement("button")
@@ -132,8 +134,9 @@ var infoDiv = document.getElementById("infoDiv")
             guideList.appendChild(listItem)
     
           }
-
+          
           routeInfoDiv.appendChild(uList)
+          infoDiv.appendChild(routeInfoDiv)
           reittiDiv.appendChild(routeInfoDiv)
           var animator = graphics.drawImage(result,startPoint,points,colorList,toReturn)
         calculated = true;
@@ -146,20 +149,20 @@ var infoDiv = document.getElementById("infoDiv")
 
     function openNav() {
         closedNav= false;
-    
+   
         var size = window.innerWidth >600 ? window.innerWidth/2 : window.innerWidth;
         document.getElementById("mySidenav").style.width = size+"px"
-      if(window.innerWidth < 600){
-          document.body.style.overflow = "hidden"
-      }
+     window.innerWidth < 600 ? document.body.style.overflow = "hidden" : reittiDiv.style.marginRight = size+50+"px"
+      
+
 
         //document.getElementById("main").style.marginLeft = "250px";
-        calculated ? (console.log("on jo piirretty"),infoDiv.hidden =false, showMapBtn.innerHTML = "Näytä kartta"): (new Graphics().drawPlainMap(), infoDiv.hidden =true);
+        calculated ? (window.dispatchEvent(new Event('resize')),infoDiv.hidden =false, showMapBtn.innerHTML = "Näytä kartta"): (new Graphics().drawPlainMap(), infoDiv.hidden =true);
         window.addEventListener('resize', resizeSideNav, false);
         function resizeSideNav() {
             if(window.innerWidth > 600){
           
-            //    document.getElementById("reittihaku").style.marginRight = window.innerWidth/2+"px";
+            //    ;
               //  document.getElementById("reittihaku").style.marginRight = window.innerWidth/2+"px";
 
             newSize = window.innerWidth/2;
@@ -184,14 +187,12 @@ var infoDiv = document.getElementById("infoDiv")
         }
         function reSizeLarge(newSize){
             if(!closedNav){
-                infoDiv.style.width = window.innerWidth
         document.getElementById("mySidenav").style.width = newSize+"px"
-      //  reittiDiv.style.width = newSize-20+"px";
+        reittiDiv.style.marginRight = newSize+50+"px"
     }
         
         else{
             document.body.style.overflow = "auto"
-          // reittiDiv.style.width = window.innerWidth+"px";
         }
 
         }
@@ -199,7 +200,6 @@ var infoDiv = document.getElementById("infoDiv")
         function reSizeSmall(newSize){
             if(!closedNav){
         document.getElementById("mySidenav").style.width = newSize+"px"
-       // reittiDiv.style.width = window.innerWidth+"px";
     }
     else{
         document.body.style.overflow = "auto"
@@ -217,7 +217,7 @@ var infoDiv = document.getElementById("infoDiv")
           closedNav = true;
           document.body.style.overflow = "auto";
         document.getElementById("mySidenav").style.width = "0";
-
+        reittiDiv.classList.add("released")
        // document.getElementById("main").style.marginLeft= "0";
       }
     function hide(){
