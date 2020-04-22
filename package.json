@@ -1,0 +1,19 @@
+{
+  "name": "koodihaaste",
+  "version": "1.0.0",
+  "description": "challenge from solidabis",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ern0ld/koodihaaste.git"
+  },
+  "author": "ern0ld",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ern0ld/koodihaaste/issues"
+  },
+  "homepage": "https://github.com/ern0ld/koodihaaste#readme"
+}

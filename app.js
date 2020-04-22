@@ -14,7 +14,7 @@ const width = window.innerWidth;
     var laskeBtn = document.getElementById("calculateBtn")
     laskeBtn.addEventListener("click", calculate)
     let guideList = document.getElementById("guidelist")
-
+var infoDiv = document.getElementById("infoDiv")
     var graphics= new Graphics()
     
     
@@ -37,8 +37,8 @@ const width = window.innerWidth;
             alert("Varmista, että lähtö- ja päätepiste ovat kirjaimia väliltä A-R")
         }
         else if(startPoint === endPoint){
-     alert('Ruotsalainen astui Globenin edestä taksiin ja sanoi kuskille:\n-Viekää minut Globeniin\n-Olemme siellä, kuski ihmetteli\n Ruotsalainen kaivoi taskustaan sadan kruunun setelin, antoi sen kuskille ja sanoi:\n-Kiitos, pitäkäkää loput. Mutta älkää ajako ensi kerralla näin kovaa.')
-            tulos.innerHTML = "Kävellen olisit jo perillä"
+     alert('Mies astui Globenin edestä taksiin ja sanoi kuskille:\n-Viekää minut Globeniin\n-Olemme siellä, kuski ihmetteli\n Mies kaivoi taskustaan sadan kruunun setelin, antoi sen kuskille ja sanoi:\n-Kiitos, pitäkäkää loput. Mutta älkää ajako ensi kerralla näin kovaa.')
+           // tulos.innerHTML = "Kävellen olisit jo perillä"
         }
       
         else{
@@ -122,11 +122,13 @@ const width = window.innerWidth;
           }
           var animator = graphics.drawImage(result,startPoint,points,colorList,toReturn)
         calculated = true;
-
         openNav();
     }
 
     }
+
+
+
     function openNav() {
         closedNav= false;
         document.body.style.overflow = "hidden";
@@ -135,7 +137,7 @@ const width = window.innerWidth;
         window.innerWidth >600 ? document.getElementById("reittihaku").style.marginRight = size-20+"px" :  document.getElementById("reittihaku").style.paddingRight ="10px"
 
         //document.getElementById("main").style.marginLeft = "250px";
-        calculated ? console.log("on jo piirretty"): new Graphics().drawPlainMap();
+        calculated ? (console.log("on jo piirretty"),infoDiv.hidden =false): (new Graphics().drawPlainMap(), infoDiv.hidden =true);
         window.addEventListener('resize', resizeSideNav, false);
         function resizeSideNav() {
             if(window.innerWidth > 600){
@@ -148,10 +150,13 @@ const width = window.innerWidth;
             reSizeLarge(newSize);
             }
             else{
+                
+                    
+                
                 if(width !== window.innerWidth){
               newSize = window.innerWidth;
-
-              guideList.hidden =false;
+                   
+             guideList.hidden =false;
             reSizeSmall(newSize);
                 }
                 else{
@@ -244,7 +249,7 @@ const width = window.innerWidth;
        
       return lowestWeightNode
      };
-//Dijkstra’s algorithm
+//Dijkstran algoritmi hoitaa raskaan työn
      const dijkstra = (graph) => {
    
         // track lowest cost to reach each node  
