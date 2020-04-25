@@ -7,6 +7,7 @@
 html,body{
     width:100%;
     height: 100%;
+
     
 }
 
@@ -15,11 +16,11 @@ html,body{
 }
 
 .released{
-  width: 90%;
-  margin-left: 10px;
-padding-right: 100px;
+  width: 100%;
+  margin-left: 1px;
+
+margin-bottom: 30px;
   
-  overflow: auto;
 }
 
   
@@ -29,7 +30,7 @@ padding-right: 100px;
     width: 50%;
     margin-left: 10px;
     margin-right: 20px;
-    
+    margin-bottom: 20px;
     overflow: hidden;
   }
   .mainList ul{
@@ -80,7 +81,8 @@ padding-right: 100px;
 .mainList li button{
   margin-top: 5px;
   margin-bottom: 5px;
-  float: right;
+  
+
 }
     .sidenav {
         height: 100%;
@@ -147,17 +149,20 @@ label{
 }
 }
 @media only screen and (max-width: 600px){
+
   
  .mobiList ul {
     list-style: none;
-    padding: 0;
     border: 1px;
     margin-left: 0px;
-   
+ 
     width:100%;
     text-align: center;
+    
+
   }
   .mobiList li {
+    list-style: none;
      /* display: table;
       text-align: left;
       width:100%;
@@ -171,37 +176,41 @@ label{
     background: #37BC9B;
     color: #fff;
     counter-increment: myCounter;
-    height: 2em;
-    margin: 0 0 00px 0;
+    height: 100%;
+    margin: 0 20px 0 0;
     padding: 13px;
     position: relative;
-    top: 1em;
+   
+    top: 0.5em;
     border-radius:  0em 2px 1em 1em;
     border-radius: 1px solid black;
     border-style: solid;
     padding-left: 2em;
-    font-size: 1.2em;
+    font-size: 1.5rem;
     font-family: Constantia;
   
   }
   .mobiList li:before{
-    content: counter(myCounter, decimal-leading-zero);
+    content: counter(myCounter, decimal);
     display: inline-block;
     text-align: center;
-    font-size: 2em;
+    font-size: 2rem;
     line-height: 1em;
     background-color:  #48CFAD;
-    padding: 10px;
+    padding-left: 0.5em;
+      padding-right: 0.5em;
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
     font-weight: bold;
     position: absolute; 
-    top: 0;
+    bottom: 10px;
     left: -25px;
     border-radius: 50%;
     font-family: exo;
   }
 
   .mobiList li label{
-    font-size: 2.5vw;
+    font-size: 0.6em;
   }
  .mobiList li button{
     
@@ -209,19 +218,18 @@ label{
     border-radius: 12px;
     vertical-align: middle;
     text-align: center;
-  
-    float: right;
-    padding-left: 10px;
-  position: relative;
-  top: 5px;
+ 
   margin-bottom: 3px;
   font-size:2 vw;
     background-color:#c7273e;
     color: white;
-  
+
   }
   .mobiList li:nth-child(even){
     background-color: #23232e;
+}
+.mobiList li:last-child{
+  margin-bottom:30px;
 }
   .mainList ul{
       /*margin: 0;padding: 0;*/
@@ -232,35 +240,46 @@ label{
       background: #37BC9B;
       color: #fff;
       counter-increment: myCounter;
-      margin: 0 0 00px 0;
+      margin: 0 13px 0px 0px;
       padding: 13px;
       position: relative;
       top: 1em;
       border-radius:  0em 2px 1em 1em;
       padding-left: 2em;
-      font-size: 1.2em;
+      font-size: 1em;
       font-family: Constantia;
+      
   }
   .mainList li:before{
-      content: counter(myCounter, decimal-leading-zero);
+      content: counter(myCounter, decimal);
       display: inline-block;
       text-align: center;
       font-size: 2em;
       line-height: 1.3em;
       background-color:  #48CFAD;
-      padding: 10px;
+      padding-left: 0.5em;
+      padding-right: 0.5em;
+      padding-top: 0.3em;
+      padding-bottom: 0.3em;
       font-weight: bold;
       position: absolute; 
-      top: 0;
-      left: -40px;
+      top:0;
+      left: -25px;
       border-radius: 50%;
       font-family: exo;
   }
-  
-  .mainList li:nth-child(even){
-      background-color: #434A54;
+  .mainList li:nth-child(odd) button{
+    background-color:  #23232e;
+    color:white;
   }
- 
+  
+  .mainList li:nth-child(even):before{
+    background-color:  #37BC9B;
+  }
+  .mainList li:nth-child(even){
+      background-color:  #23232e;
+  }
+  
   body::-webkit-scrollbar {
     width: 0.25rem;
   }
@@ -339,9 +358,6 @@ label{
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
 
-label{
-    font-size: 12px;
-}
 .instructions::-webkit-scrollbar {
     width: 0.25rem;
   }
@@ -361,7 +377,7 @@ label{
     margin-top: 20px;
     float:bottom;
     overflow:auto;
-    padding-right:20px;
+   
 
     
 }
@@ -371,6 +387,11 @@ label{
 .searchTerms label{
   font-size: 5vw;
 
+}
+#reittihaku{
+  text-align: center;
+  margin-right: 10px;
+ 
 }
 
 }

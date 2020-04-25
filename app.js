@@ -104,6 +104,7 @@ var infoDiv = document.getElementById("infoDiv")
        
         
          resultText.style.textAlign = "center"
+        
         // guideList.innerHTML =tulos.innerHTML;
          let routeInfoDiv = document.createElement("div")
          routeInfoDiv.appendChild(resultText)
@@ -114,13 +115,14 @@ var infoDiv = document.getElementById("infoDiv")
 
          let uList = document.createElement("ol")
          uList.appendChild(tulos)
-      
+      let enter = document.createElement("br")
           for(let i = 0; i < toReturn.length; i++){
             var ohje = document.createElement("li")
             var button = document.createElement("button")
             button.innerHTML = "Näytä kartalla"
             button.onclick= function(){ if (document.getElementById("mySidenav").style.width==="0px" || document.getElementById("mySidenav").style.width === undefined){openNav()}animator(toReturn,colorList[i],points[result[i]]["width"],points[result[i]]["height"],points[result[i+1]]["width"],points[result[i+1]]["height"])}
             ohje.innerHTML = toReturn[i]
+          
             ohje.appendChild(button)
             uList.appendChild(ohje) 
             uList.classList.add("mainList")
