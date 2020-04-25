@@ -37,14 +37,14 @@ class Graphics
                 var imgWidth = parseInt(document.getElementById("mySidenav").style.width)
                 ctx.drawImage(img, 0, 0, imgWidth, img.height);
                 ctx.lineWidth = 3;
-                ctx.beginPath();
+              /*  ctx.beginPath();
                 ctx.strokeStyle = colors[colorList[0]];
                
            ctx.arc(htmlCanvas.width*points[startPoint]["width"]*2, htmlCanvas.height*points[startPoint]["height"]*2, 20, 0, 2 * Math.PI, false);
            ctx.moveTo(htmlCanvas.width*points[result[1]]["width"]*2+20, htmlCanvas.height*points[result[1]]["height"]*2)
            ctx.stroke();
-ctx.closePath();
-     for(let i = 1; i < result.length; i++){
+ctx.closePath();*/
+     for(let i = 0; i < result.length; i++){
          ctx.beginPath();
         ctx.strokeStyle = colors[colorList[i]];
         ctx.arc((htmlCanvas.width*points[result[i]]["width"])*2, htmlCanvas.height*points[result[i]]["height"]*2, 20, 0, 2 * Math.PI, false);
@@ -79,33 +79,40 @@ ctx.closePath();
 
             }
             function redrawSmall() {
-               
+                ctx.drawImage(img,0 , 0, img.width, img.height);
+                ctx.lineWidth = 3;
+              /*  ctx.beginPath();
+                ctx.strokeStyle = colors[colorList[0]];
                 
-              /*  ctx.arc(htmlCanvas.width*points[startPoint]["width"]*2, htmlCanvas.height*points[startPoint]["height"], 20, 0, 2 * Math.PI, false);
+                ctx.arc(htmlCanvas.width*points[startPoint]["width"]*2, htmlCanvas.height*points[startPoint]["height"], 20, 0, 2 * Math.PI, false);
                 ctx.moveTo(htmlCanvas.width*points[result[1]]["width"]*2+20, htmlCanvas.height*points[result[1]]["height"])
                 ctx.stroke();
-         for(let i = 1; i < result.length; i++){
-            
+                ctx.closePath();*/
+         for(let i = 0; i < result.length; i++){
+             ctx.beginPath();
+            ctx.strokeStyle = colors[colorList[i]];
+
             ctx.arc((htmlCanvas.width*points[result[i]]["width"])*2, htmlCanvas.height*points[result[i]]["height"], 20, 0, 2 * Math.PI, false);
             if(result[i+1] !== undefined){
                 ctx.moveTo(htmlCanvas.width*points[result[i+1]]["width"]*2+20, htmlCanvas.height*points[result[i+1]]["height"])
     
             }
+            ctx.closePath();
             ctx.stroke();
-        }*/
+        }
         
                 
                 // To use the custom size we'll have to specify the scale parameters 
                 // using the element's width and height properties - lets draw one 
                 // on top in the corner:
            
-                ctx.drawImage(img,0 , 0, img.width, img.height);
+               
                
                 
         
                 ctx.lineWidth = 3;
-                ctx.strokeStyle = '#00ff00';
-                ctx.stroke();
+               /* ctx.strokeStyle = '#00ff00';
+                ctx.stroke();*/
                 for(let i = 0; i < result.length; i++){
                     ctx.font = "24px Comic Sans MS";
                   //  ctx.fillStyle = colors[colorList[i]];
@@ -191,7 +198,7 @@ context.stroke();
         setTimeout(function () {
         // return the canvas to the state right after we show the arrow
         resizeCanvas()  
-        }, 2000);
+        }, 3000);
         
             }
             function canvas_arrow(context, fromx, fromy, tox, toy) {
@@ -275,61 +282,33 @@ context.stroke();
                 infoCanvas.width = window.innerWidth;
                infoCanvas.height = window.innerHeight;
     
-
-var rect = {
-	x:infoCanvas.width-90,
-	y:infoCanvas.height-100,
-	width:75,
-	heigth:50
-};
-
-document.addEventListener('click', function(evt) {
-	var mousePos = getMousePos(infoCanvas, evt);
-	if (isInside(mousePos,rect)) {
-		closeNav()
-    }	
-}, false);
-
-infoContext.beginPath();
-infoContext.rect(infoCanvas.width-90, infoCanvas.height-90, 75, 50); 
-infoContext.fillStyle = '#FFFFFF'; 
-infoContext.fillStyle = 'rgba(225,225,225,0.5)';
-infoContext.fillRect(infoCanvas.width-90,infoCanvas.height-90,75,50);
-infoContext.fill(); 
-infoContext.lineWidth = 2;
-infoContext.strokeStyle = '#000000'; 
-infoContext.stroke();
-infoContext.closePath();
-infoContext.font = '20pt Kremlin Pro Web';
-infoContext.fillStyle = '#000000';
-infoContext.fillText('OK!', infoCanvas.width-75, infoCanvas.height-57);
-               
-        
-     
                 infoContext.lineWidth = 3;
                 
-                infoContext.font = "5vw Times New Roman";
+                infoContext.font = "5vw Kremlin Pro Web";
                 infoContext.fillStyle = 'white';
               
-               var text ="Tervetuloa reittihakuun."
-               var text2="Yllä näet esimerkin haun tuloksesta kartalla,"
-               var text3 ="lähtöpisteenä A ja päätepisteenä R."
-               var text4 = "Haun tulokset tulevat näkyviin eriteltynä listana, "
-               var text5 = "joista jokaista etappia voi tarkastella erikseen"
+               const text ="Tervetuloa reittihakuun."
+               const text2="Yllä näet esimerkin haun tuloksesta kartalla,"
+              const text3 ="lähtöpisteenä A ja päätepisteenä R."
+              const text4 = "Haun tulokset tulevat näkyviin eriteltynä listana, "
+               const text5 = "jossa jokaista etappia voi tarkastella erikseen."
           infoContext.beginPath();
+         var yPosition = window.innerHeight/2;
                  infoContext.moveTo(10,400)
-                 infoContext.fillText(text, 10, 400,infoCanvas.width-20, 0, 2 * Math.PI, false);
-                 infoContext.fillText(text2, 10, 430,infoCanvas.width-20, 0, 2 * Math.PI, false);
-                 infoContext.fillText(text3, 10, 460,infoCanvas.width-20, 0, 2 * Math.PI, false);
-                 infoContext.fillText(text4, 10, 520,infoCanvas.width-20, 0, 2 * Math.PI, false);
-                 infoContext.moveTo(0,0)
+                 infoContext.fillText(text, 10, yPosition+50,infoCanvas.width-20, 0, 2 * Math.PI, false);
+                 infoContext.fillText(text2, 10, yPosition+80,infoCanvas.width-20, 0, 2 * Math.PI, false);
+                 infoContext.fillText(text3, 10, yPosition+110,infoCanvas.width-20, 0, 2 * Math.PI, false);
+                
+                 
             
                  infoContext.stroke();
-                 infoContext.fillText(text5,10,550, infoCanvas.width-20, 0, 2 * Math.PI, false);
+                 infoContext.moveTo(10,yPosition+160)
+                 infoContext.fillText(text4, 10, yPosition+160,infoCanvas.width-20, 0, 2 * Math.PI, false);
+                 infoContext.fillText(text5,10,yPosition+190, infoCanvas.width-20, 0, 2 * Math.PI, false);
 
                  infoContext.stroke();
                     drawCircles();
-
+drawOk(infoContext,infoCanvas);
                     //Function to get the mouse position
 
 
@@ -360,11 +339,11 @@ infoContext.fillText('OK!', infoCanvas.width-75, infoCanvas.height-57);
                infoCanvas.height = window.innerHeight/4;
                 infoContext.lineWidth = 3;
                 
-                   infoContext.font = "2vw Times New Roman";
+                   infoContext.font = "2vw Kremlin Pro Web";
                    infoContext.fillStyle = 'white';
          
                   var text ="Tervetuloa reittihakuun. Yllä näet esimerkin haun tuloksesta kartalla. Lähtöpisteenä A ja päätepisteenä R."
-                  var text2 = "Haun tulokset tulevat näkyviin eriteltynä listana, joista jokaista etappia voi tarkastella erikseen"
+                  var text2 = "Haun tulokset tulevat näkyviin eriteltynä listana, jossa jokaista etappia voi tarkastella erikseen"
                   //  infoContext.textAlign = "center";
                   infoContext.beginPath();
                     infoContext.moveTo(0,0)
@@ -380,13 +359,7 @@ infoContext.fillText('OK!', infoCanvas.width-75, infoCanvas.height-57);
                // Context.arc(htmlCanvas.width*points[startPoint]["width"]*2, htmlCanvas.height*points[startPoint]["height"], 20, 0, 2 * Math.PI, false);
                 //context.moveTo(htmlCanvas.width*points[result[1]]["width"]*2+20, htmlCanvas.height*points[result[1]]["height"])
                 
-                        setTimeout(function () {
-                        // return the canvas to the state right after we show the arrow
-                        infoContext.clearRect(0,0,infoCanvas.width,infoCanvas.height);
-                        infotime = false;
-                        resizeCanvas()  
-                        
-                        }, 10000);
+                       drawOk(infoContext,infoCanvas)
             }
             function drawCircles(){
                 var infoMapCanvas = document.getElementById("infoMapCanvas");
@@ -417,20 +390,39 @@ infoContext.fillText('OK!', infoCanvas.width-75, infoCanvas.height-57);
     }
         
 
-            function canvas_arrow(context, fromx, fromy, tox, toy) {
-                var headlen = 30; // length of head in pixels
-                var dx = tox - fromx;
-                var dy = toy - fromy;
-                var angle = Math.atan2(dy, dx);
-                context.moveTo(fromx, fromy);
-                context.lineTo(tox, toy);
-                context.lineTo(tox - headlen * Math.cos(angle - Math.PI / 6), toy - headlen * Math.sin(angle - Math.PI / 6));
-                context.moveTo(tox, toy);
-                context.lineTo(tox - headlen * Math.cos(angle + Math.PI / 6), toy - headlen * Math.sin(angle + Math.PI / 6));
-              }
-            
     }
     
+}
+function drawOk(infoContext,infoCanvas){
+    var yMinus = window.innerWidth > 600 ? 50 : 100;
+    var okYMinus = window.innerWidth > 600? 16: 65
+    var rect = {
+        x:infoCanvas.width-90,
+        y:infoCanvas.height-yMinus,
+        width:75,
+        heigth:50
+    };
+    
+    document.addEventListener('click', function(evt) {
+        var mousePos = getMousePos(infoCanvas, evt);
+        if (isInside(mousePos,rect)) {
+            closeNav()
+        }	
+    }, false);
+    
+    infoContext.beginPath();
+    infoContext.rect(infoCanvas.width-90, infoCanvas.height-yMinus, 75, 50); 
+    infoContext.fillStyle = '#FFFFFF'; 
+    infoContext.fillStyle = 'rgba(225,225,225,0.5)';
+    infoContext.fillRect(infoCanvas.width-90,infoCanvas.height-yMinus,75,50);
+    infoContext.fill(); 
+    infoContext.lineWidth = 2;
+    infoContext.strokeStyle = '#000000'; 
+    infoContext.stroke();
+    infoContext.closePath();
+    infoContext.font = '20pt Kremlin Pro Web';
+    infoContext.fillStyle = '#000000';
+    infoContext.fillText('OK!', infoCanvas.width-75, infoCanvas.height-okYMinus);
 }
 
 //Function to get the mouse position

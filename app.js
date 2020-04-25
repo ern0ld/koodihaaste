@@ -8,16 +8,19 @@ var closedNav = true;
 const height= window.innerHeight;
 const width = window.innerWidth;
 var reittiDiv = document.getElementById("reittihaku")
+reittiDiv.classList.add("mainList")
     var linjastot = storage.getLines();
 
     var points = storage.getPoints();
     var laskeBtn = document.getElementById("calculateBtn")
     laskeBtn.addEventListener("click", calculate)
     let guideList = document.getElementById("guidelist")
+    
 var infoDiv = document.getElementById("infoDiv")
     var graphics= new Graphics()
     var showMapBtn = document.getElementById("showMap")
     var infoDivResultHeader= document.getElementById("infoDivResultHeader")
+    const plainMap = new Graphics().drawPlainMap();
     async function calculate(){
 
     const graph = storage.getGraph()
@@ -31,6 +34,8 @@ var infoDiv = document.getElementById("infoDiv")
         if(document.getElementById("routeInfoDiv") !==null){
             let remove = document.getElementById("routeInfoDiv")
             remove.parentNode.removeChild(remove)
+            let removeMobi = document.getElementById("mobiInfoDiv")
+            removeMobi.parentNode.removeChild(removeMobi)
     
            }
    
@@ -85,7 +90,7 @@ var infoDiv = document.getElementById("infoDiv")
               var ohje = document.createElement("h3")
                // ohje.innerHTML = "Valitse "+ colorList[i-1]+" linja ja matkusta kohteeseen " + result[i]
                 let time = graph[result[i]][result[i+1]];
-                var str = (i+1).toString()+". Valitse "+ colorList[i]+" linja ja matkusta kohteesta "+ key + " kohteeseen " + result[i+1] +". " + "Matkan kesto " + time  + " aikayksikköä. "
+                var str = "Valitse "+ colorList[i]+" linja ja matkusta kohteesta "+ key + " kohteeseen " + result[i+1] +". " + "Matkan kesto " + time  + " aikayksikköä. "
                     toReturn.push(str)
                     key = result[i+1]
           }
@@ -95,35 +100,38 @@ var infoDiv = document.getElementById("infoDiv")
             guideList.hidden = true;
          }
          var resultText = document.createElement("h4")
-         guideList.innerHTML =tulos.innerHTML;
-         guideList.appendChild(resultText)
+         resultText.innerHTML = tulos.innerHTML
+       
+        
+         resultText.style.textAlign = "center"
+        // guideList.innerHTML =tulos.innerHTML;
          let routeInfoDiv = document.createElement("div")
-    
+         routeInfoDiv.appendChild(resultText)
          routeInfoDiv.id = "routeInfoDiv"
-         
+         let mobiInfoDiv = document.createElement("div")
+         mobiInfoDiv.id = "mobiInfoDiv"
+         mobiInfoDiv.appendChild(resultText)
+
          let uList = document.createElement("ol")
          uList.appendChild(tulos)
       
           for(let i = 0; i < toReturn.length; i++){
-            var ohje = document.createElement("h4")
+            var ohje = document.createElement("li")
             var button = document.createElement("button")
             button.innerHTML = "Näytä kartalla"
             button.onclick= function(){ if (document.getElementById("mySidenav").style.width==="0px" || document.getElementById("mySidenav").style.width === undefined){openNav()}animator(toReturn,colorList[i],points[result[i]]["width"],points[result[i]]["height"],points[result[i+1]]["width"],points[result[i+1]]["height"])}
             ohje.innerHTML = toReturn[i]
+            ohje.appendChild(button)
             uList.appendChild(ohje) 
-            uList.appendChild(button)
+            uList.classList.add("mainList")
+            //uList.appendChild(button)
            
-            
+            //guideList.appendChild(ohje)
             var listButton = document.createElement("button")
             listButton.className = "button"
             var listOhje = document.createElement('label')
             var listItem = document.createElement("li")
-            if(i ===0){
-                listItem.className = "li"
-            }
-            else{
-                listItem.className = "linumber"
-            }
+            
             listButton.innerHTML = "Näytä >>>"
           // listItem.style.paddingBottom = "10px"
             listButton.onclick= function(){ if (document.getElementById("mySidenav").style.width==="0px" || document.getElementById("mySidenav").style.width === undefined){openNav()}animator(toReturn,colorList[i],points[result[i]]["width"],points[result[i]]["height"],points[result[i+1]]["width"],points[result[i+1]]["height"])}
@@ -131,12 +139,15 @@ var infoDiv = document.getElementById("infoDiv")
             listItem.appendChild(listOhje)
             listItem.appendChild(listButton)
             
-            guideList.appendChild(listItem)
+            mobiInfoDiv.appendChild(listItem)
+
     
           }
+          guideList.appendChild(mobiInfoDiv)
+          guideList.classList.add("mobiList")
           
           routeInfoDiv.appendChild(uList)
-         // infoDiv.appendChild(routeInfoDiv)
+       // infoDiv.appendChild(routeInfoDiv)
           reittiDiv.appendChild(routeInfoDiv)
           var animator = graphics.drawImage(result,startPoint,points,colorList,toReturn)
         calculated = true;
@@ -157,7 +168,7 @@ var infoDiv = document.getElementById("infoDiv")
 
 
         //document.getElementById("main").style.marginLeft = "250px";
-        calculated ? (window.dispatchEvent(new Event('resize')),infoDiv.hidden =false, showMapBtn.innerHTML = "Näytä kartta"): (new Graphics().drawPlainMap(), infoDiv.hidden =true);
+        calculated ? (window.dispatchEvent(new Event('resize')),infoDiv.hidden =false, showMapBtn.innerHTML = "Näytä kartta"): (plainMap, infoDiv.hidden =true);
         window.addEventListener('resize', resizeSideNav, false);
         function resizeSideNav() {
             if(window.innerWidth > 600){
@@ -167,6 +178,7 @@ var infoDiv = document.getElementById("infoDiv")
 
             newSize = window.innerWidth/2;
             infoDiv.hidden = true;
+            guideList.hidden = true
 
             reSizeLarge(newSize);
            
@@ -177,7 +189,7 @@ var infoDiv = document.getElementById("infoDiv")
                 
                 if(width !== window.innerWidth){
               newSize = window.innerWidth;
-                   
+                   guideList.hidden = false;
              infoDiv.hidden =false;
             reSizeSmall(newSize);
                 }
@@ -217,16 +229,18 @@ var infoDiv = document.getElementById("infoDiv")
           closedNav = true;
           document.body.style.overflow = "auto";
         document.getElementById("mySidenav").style.width = "0";
+
         reittiDiv.classList.add("released")
        // document.getElementById("main").style.marginLeft= "0";
       }
     function hide(){
         if(window.innerWidth < 600){
             document.querySelector(".active").classList.remove("active")
-        setTimeout(function () {
-            // return the canvas to the state right after we drew the blue rect
+   
+            
            document.querySelector(".page").classList.add("active")
-            },5000);
+      
+           
             
                 }
              

@@ -13,11 +13,7 @@ html,body{
 .h1{
     color : #c7273e;
 }
-#reittihaku{
-  margin-left: 10px;
-  margin-right: 20px;
-  overflow: auto;
-}
+
 .released{
   width: 90%;
   margin-left: 10px;
@@ -26,8 +22,66 @@ padding-right: 100px;
   overflow: auto;
 }
 
-@media only screen and (min-width: 600px){
+  
 
+@media only screen and (min-width: 600px){
+  #reittihaku{
+    width: 50%;
+    margin-left: 10px;
+    margin-right: 20px;
+    
+    overflow: hidden;
+  }
+  .mainList ul{
+    overflow: hidden;
+      /*margin: 0;padding: 0;*/
+      list-style: none;
+   
+  }
+   .mainList li {
+      background: #37BC9B;
+      color: #fff;
+      counter-increment: myCounter;
+      margin: 0 30px 0 0;
+      padding: 13px;
+      position: relative;
+      top: 1em;
+      border-radius:  0em 2px 1em 1em;
+      padding-left: 2em;
+      font-size: 1.2em;
+      font-family: Constantia;
+  }
+  .mainList li:before{
+      content: counter(myCounter, decimal);
+      display: inline-block;
+      text-align: center;
+      font-size: 2em;
+      line-height: 1.2em;
+      background-color:   #23232e;
+    
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      font-weight: bold;
+      position: absolute; 
+      top: 0;
+      left: -30px;
+      border-radius:50%;
+      font-family: exo;
+  }
+  
+  .mainList li:nth-child(even):before{
+    background-color:  #37BC9B;
+  }
+  .mainList li:nth-child(even){
+      background-color:  #23232e;
+  }
+.mainList li button{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  float: right;
+}
     .sidenav {
         height: 100%;
         width: 0%;
@@ -73,7 +127,7 @@ padding-right: 100px;
 .kartta{
     float: right;
     margin-top: 10px;
-    margin-right: 10px;
+ 
     
  
 }
@@ -93,6 +147,119 @@ label{
 }
 }
 @media only screen and (max-width: 600px){
+  
+ .mobiList ul {
+    list-style: none;
+    padding: 0;
+    border: 1px;
+    margin-left: 0px;
+   
+    width:100%;
+    text-align: center;
+  }
+  .mobiList li {
+     /* display: table;
+      text-align: left;
+      width:100%;
+    padding: 6px;
+    right: 100px;
+    background-color: #c7273e;
+    border-radius: 1px solid black;
+    
+    padding-bottom: 10px;*/
+    left:20px;
+    background: #37BC9B;
+    color: #fff;
+    counter-increment: myCounter;
+    height: 2em;
+    margin: 0 0 00px 0;
+    padding: 13px;
+    position: relative;
+    top: 1em;
+    border-radius:  0em 2px 1em 1em;
+    border-radius: 1px solid black;
+    border-style: solid;
+    padding-left: 2em;
+    font-size: 1.2em;
+    font-family: Constantia;
+  
+  }
+  .mobiList li:before{
+    content: counter(myCounter, decimal-leading-zero);
+    display: inline-block;
+    text-align: center;
+    font-size: 2em;
+    line-height: 1em;
+    background-color:  #48CFAD;
+    padding: 10px;
+    font-weight: bold;
+    position: absolute; 
+    top: 0;
+    left: -25px;
+    border-radius: 50%;
+    font-family: exo;
+  }
+
+  .mobiList li label{
+    font-size: 2.5vw;
+  }
+ .mobiList li button{
+    
+    
+    border-radius: 12px;
+    vertical-align: middle;
+    text-align: center;
+  
+    float: right;
+    padding-left: 10px;
+  position: relative;
+  top: 5px;
+  margin-bottom: 3px;
+  font-size:2 vw;
+    background-color:#c7273e;
+    color: white;
+  
+  }
+  .mobiList li:nth-child(even){
+    background-color: #23232e;
+}
+  .mainList ul{
+      /*margin: 0;padding: 0;*/
+      list-style: none;
+  }
+   .mainList li {
+     left:0px;
+      background: #37BC9B;
+      color: #fff;
+      counter-increment: myCounter;
+      margin: 0 0 00px 0;
+      padding: 13px;
+      position: relative;
+      top: 1em;
+      border-radius:  0em 2px 1em 1em;
+      padding-left: 2em;
+      font-size: 1.2em;
+      font-family: Constantia;
+  }
+  .mainList li:before{
+      content: counter(myCounter, decimal-leading-zero);
+      display: inline-block;
+      text-align: center;
+      font-size: 2em;
+      line-height: 1.3em;
+      background-color:  #48CFAD;
+      padding: 10px;
+      font-weight: bold;
+      position: absolute; 
+      top: 0;
+      left: -40px;
+      border-radius: 50%;
+      font-family: exo;
+  }
+  
+  .mainList li:nth-child(even){
+      background-color: #434A54;
+  }
  
   body::-webkit-scrollbar {
     width: 0.25rem;
@@ -190,60 +357,20 @@ label{
 .instructions{
     
    height:50%;
-    left: -10px;
+    left: -50px;
     margin-top: 20px;
     float:bottom;
-    overflow:scroll;
+    overflow:auto;
     padding-right:20px;
 
     
 }
-ol {
-  list-style: none;
-  padding: 0;
-  border: 1px;
-  margin-left: 0px;
-  padding-top: 10px;
-  width:100%;
-  text-align: center;
-}
-li {
-    display: table;
-    text-align: left;
-    width:100%;
-  padding: 6px;
-  right: 100px;
-  background-color: #c7273e;
-  border-radius: 1px solid black;
-  border-style: solid;
-  padding-bottom: 10px;
 
-}
-li label{
-  font-size: 2.5vw;
-}
-li button{
-  
-  
-  border-radius: 12px;
-  vertical-align: middle;
-  text-align: center;
 
-  float: right;
-  padding-left: 10px;
-position: relative;
-top: 5px;
-margin-bottom: 3px;
-font-size:2 vw;
-  background-color:#c7273e;
-  color: white;
-
-}
 
 .searchTerms label{
   font-size: 5vw;
 
 }
-
 
 }
