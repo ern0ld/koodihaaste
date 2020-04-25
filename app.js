@@ -229,9 +229,9 @@ var infoDiv = document.getElementById("infoDiv")
       
       function closeNav() {
           closedNav = true;
-          document.body.style.overflow = "auto";
+         document.body.style.overflow = "auto";
         document.getElementById("mySidenav").style.width = "0";
-
+      
         reittiDiv.classList.add("released")
        // document.getElementById("main").style.marginLeft= "0";
       }

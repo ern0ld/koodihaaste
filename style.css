@@ -4,11 +4,13 @@
     height:640px;
     
 }*/
-html,body{
+html{
 
     height: 100%;
-    width: auto !important;
-    
+
+}
+body{
+  width: auto !important;
 }
 
 .h1{
