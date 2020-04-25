@@ -17,7 +17,7 @@ html,body{
 
 .released{
   width: 100%;
-  margin-left: 1px;
+  margin-left: -15px;
 
 margin-bottom: 30px;
   
@@ -43,7 +43,7 @@ margin-bottom: 30px;
       background: #37BC9B;
       color: #fff;
       counter-increment: myCounter;
-      margin: 0 30px 0 0;
+      margin: 0 0 0 0;
       padding: 13px;
       position: relative;
       top: 1em;
@@ -239,8 +239,9 @@ label{
      left:0px;
       background: #37BC9B;
       color: #fff;
+    
       counter-increment: myCounter;
-      margin: 0 13px 0px 0px;
+      margin: 0 0 0px 0px;
       padding: 13px;
       position: relative;
       top: 1em;
@@ -268,9 +269,10 @@ label{
       border-radius: 50%;
       font-family: exo;
   }
-  .mainList li:nth-child(odd) button{
-    background-color:  #23232e;
+  .mainList li button{
+    background-color: #576e75;
     color:white;
+    margin-top: 8px;
   }
   
   .mainList li:nth-child(even):before{
@@ -391,6 +393,7 @@ label{
 #reittihaku{
   text-align: center;
   margin-right:30px;
+  margin-left:10px
  
 }
 
