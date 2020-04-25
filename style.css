@@ -143,8 +143,14 @@ label{
 }
 }
 @media only screen and (max-width: 600px){
+  #reittihaku{
+    text-align: center;
+    margin-right:30px;
+    margin-left:10px
+   
+  }
 
-  
+
  .mobiList ul {
     list-style: none;
     border: 1px;
@@ -243,7 +249,7 @@ label{
       padding-left: 2em;
       font-size: 1em;
       font-family: Constantia;
-      
+      margin-right:-40px;
   }
   .mainList li:before{
       content: counter(myCounter, decimal);
@@ -384,19 +390,5 @@ label{
   font-size: 5vw;
 
 }
-#reittihaku{
-  text-align: center;
-  margin-right:30px;
-  margin-left:10px
- 
-}
-.released{
-  text-align: center;
-  width: 100%;
-  margin-left: -15px;
 
-margin-bottom: 30px;
-margin-right:20px;
-  
-}
 }
