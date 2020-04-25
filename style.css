@@ -15,13 +15,7 @@ html,body{
     color : #c7273e;
 }
 
-.released{
-  width: 100%;
-  margin-left: -15px;
 
-margin-bottom: 30px;
-  
-}
 
   
 
@@ -203,7 +197,7 @@ label{
       padding-bottom: 0.5em;
     font-weight: bold;
     position: absolute; 
-    bottom: 10px;
+    top:5px;
     left: -25px;
     border-radius: 50%;
     font-family: exo;
@@ -236,7 +230,7 @@ label{
       list-style: none;
   }
    .mainList li {
-     left:0px;
+     left:-20px;
       background: #37BC9B;
       color: #fff;
     
@@ -396,5 +390,13 @@ label{
   margin-left:10px
  
 }
+.released{
+  text-align: center;
+  width: 100%;
+  margin-left: -15px;
 
+margin-bottom: 30px;
+margin-right:20px;
+  
+}
 }

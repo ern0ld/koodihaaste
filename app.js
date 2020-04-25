@@ -202,7 +202,7 @@ var infoDiv = document.getElementById("infoDiv")
         function reSizeLarge(newSize){
             if(!closedNav){
         document.getElementById("mySidenav").style.width = newSize+"px"
-        reittiDiv.style.marginRight = newSize+50+"px"
+       // reittiDiv.style.marginRight = newSize+50+"px"
     }
         
         else{
