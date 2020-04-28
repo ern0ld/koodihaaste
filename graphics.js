@@ -10,7 +10,7 @@ class Graphics
        let colors = {"vihrea" : "#22b14c", "keltainen" : "yellow", "sininen" : "blue", "punainen" : "red"}
         var img = new Image(640,480)
         img.onload = initialize;
-        img.src = "varikartta.png"
+        img.src = "karttaVariton.png"
         
           
             // Obtain a reference to the canvas element using its id.
@@ -218,9 +218,12 @@ context.stroke();
     }
     drawPlainMap(){
         var img = new Image(640,480)
+        
         const storage = new Storage(); 
+
         img.onload = initialize;
-        img.src = "varikartta.png"
+        img.src = "ohjekarttapieni.png"
+     
             var infoMapCanvas = document.getElementById("infoMapCanvas");
             var ctx = infoMapCanvas.getContext("2d");
             
@@ -236,7 +239,7 @@ context.stroke();
     
            
             function redraw() {
-    ctx.beginPath();
+            ctx.beginPath();
             ctx.drawImage(img, 0, 0, img.width, img.height);
             ctx.lineWidth = 3;
             ctx.strokeStyle = '#00ff00';
@@ -259,7 +262,8 @@ context.stroke();
                 redraw();
                 if(infotime){
                 showInfo();
-                drawCircles()}
+              
+            }
                 }
                 else{
                     infoMapCanvas.width = window.innerWidth;
@@ -269,19 +273,60 @@ context.stroke();
                 redrawSmall();
                 if(infotime){
                     showSmallInfo();
-                    drawCircles()}
+         
+                }
                     }
                 
             }
+           /* function drawCircles(){
+                var infoMapCanvas = document.getElementById("infoMapCanvas");
+                
+                var context = infoMapCanvas.getContext("2d"); 
+                 
+                var points =storage.getPoints();
+                const result = ["A","D","R"];
+                const colorList = ["vihrea", "punainen", "punainen"]
+                const colors = storage.getColors();
+            
+            for(let i = 0; i < result.length; i++){
+            context.beginPath();
+            context.strokeStyle = colors[colorList[i]];
+            context.arc((infoMapCanvas.width*points[result[i]]["width"])*2, infoMapCanvas.height*points[result[i]]["height"]*2, 20, 0, 2 * Math.PI, false);
+            
+            
+            if(result[i+1] !== undefined){
+            context.moveTo(infoMapCanvas.width*points[result[i+1]]["width"]*2+20, infoMapCanvas.height*points[result[i+1]]["height"]*2)
+            
+            }
+            
+            context.closePath();
+            context.stroke();
+            }
+            for(let i = 0; i < result.length; i++){
+            context.font = "2vw Comic Sans MS";
+            // ctx.fillStyle = colors[colorList[i]];
+            context.textAlign = "center";
+            var str = (i+1).toString();
+            context.fillText(str,(infoMapCanvas.width*points[result[i]]["width"])*2+30, infoMapCanvas.height*points[result[i]]["height"]*2, 20, 0, 2 * Math.PI, false);
+            
+            if(result[i+1] !== undefined){
+            context.moveTo(infoMapCanvas.width*points[result[i+1]]["width"]*2+30, infoMapCanvas.height*points[result[i+1]]["height"]*2)
+            
+            }
+            
+            context.stroke();
+            
+            }
+            }*/
             function showSmallInfo(){
                 
                 let infoCanvas = document.getElementById("infoCanvas");
            
                 var infoContext = infoCanvas.getContext("2d");
-                
+                infoContext.drawImage(img,0,0,img.width,img.height)
                 infoCanvas.width = window.innerWidth;
                infoCanvas.height = window.innerHeight;
-    
+               drawOk(infoContext,infoCanvas);
                 infoContext.lineWidth = 3;
                 
                 infoContext.font = "5vw Kremlin Pro Web";
@@ -307,8 +352,9 @@ context.stroke();
                  infoContext.fillText(text5,10,yPosition+190, infoCanvas.width-20, 0, 2 * Math.PI, false);
 
                  infoContext.stroke();
-                    drawCircles();
-drawOk(infoContext,infoCanvas);
+                   // drawCircles();
+
+
                     //Function to get the mouse position
 
 
@@ -332,36 +378,40 @@ drawOk(infoContext,infoCanvas);
                 var infoCanvas = document.getElementById("infoCanvas");
            
                 var infoContext = infoCanvas.getContext("2d");
-                
+               infoContext.drawImage(img, 0 , 0, img.width, img.height);
                 //canvas_arrow(infoContext,htmlCanvas.width/2, 0,htmlCanvas.width/2-100,200);
            
                 infoCanvas.width = window.innerWidth/2;
-               infoCanvas.height = window.innerHeight/4;
+               infoCanvas.height = window.innerHeight/2;
+            
                 infoContext.lineWidth = 3;
                 
-                   infoContext.font = "2vw Kremlin Pro Web";
+                   infoContext.font = "2.5vw Kremlin Pro Web";
                    infoContext.fillStyle = 'white';
          
-                  var text ="Tervetuloa reittihakuun. Yllä näet esimerkin haun tuloksesta kartalla. Lähtöpisteenä A ja päätepisteenä R."
-                  var text2 = "Haun tulokset tulevat näkyviin eriteltynä listana, jossa jokaista etappia voi tarkastella erikseen"
+                  const text ="Yllä näet linjojen värit ja esimerkin haun tuloksesta,"
+                  const text2 = "lähtöpisteenä A ja päätepisteenä R."
+                  const text3 = "Haun tulokset tulevat näkyviin eriteltynä listana,"
+                  const text4 = "jossa jokaista etappia voi tarkastella erikseen"
                   //  infoContext.textAlign = "center";
                   infoContext.beginPath();
                     infoContext.moveTo(0,0)
-                    infoContext.fillText(text, 10, 50,infoCanvas.width-20, 0, 2 * Math.PI, false);
-                    infoContext.moveTo(10,infoCanvas.width-100)
+                    infoContext.fillText(text, 10, 50,infoCanvas.width-30, 0, 2 * Math.PI, false);
+                    infoContext.moveTo(10,infoCanvas.width-50)
+                    infoContext.fillText(text2,10, 85, infoCanvas.width-30, 0, 2 * Math.PI, false);
+                    infoContext.stroke();
                    
-                    infoContext.stroke();
-                    infoContext.fillText(text2,10, 100, infoCanvas.width-20, 0, 2 * Math.PI, false);
+                    infoContext.fillText(text3,10, 125, infoCanvas.width-30, 0, 2 * Math.PI, false);
 
                     infoContext.stroke();
-                    drawCircles();
-
+                    infoContext.fillText(text4,10, 160, infoCanvas.width-30, 0, 2 * Math.PI, false);
+                    infoContext.stroke();
                // Context.arc(htmlCanvas.width*points[startPoint]["width"]*2, htmlCanvas.height*points[startPoint]["height"], 20, 0, 2 * Math.PI, false);
                 //context.moveTo(htmlCanvas.width*points[result[1]]["width"]*2+20, htmlCanvas.height*points[result[1]]["height"])
                 
                        drawOk(infoContext,infoCanvas)
             }
-            function drawCircles(){
+           /* function drawCircles(){
                 var infoMapCanvas = document.getElementById("infoMapCanvas");
                 
                 var context = infoMapCanvas.getContext("2d"); 
@@ -371,7 +421,7 @@ drawOk(infoContext,infoCanvas);
                 const colorList = ["vihrea", "punainen", "punainen"]
                 const colors = storage.getColors();
         
-     for(let i = 0; i < result.length; i++){
+     /*for(let i = 0; i < result.length; i++){
          context.beginPath();
         context.strokeStyle = colors[colorList[i]];
         context.arc((infoMapCanvas.width*points[result[i]]["width"])*2, infoMapCanvas.height*points[result[i]]["height"]*2, 20, 0, 2 * Math.PI, false);
@@ -384,37 +434,55 @@ drawOk(infoContext,infoCanvas);
        
         context.closePath();
         context.stroke();
+    }*/
+   /* for(let i = 0; i < result.length; i++){
+        context.font = "2vw Comic Sans MS";
+       // ctx.fillStyle = colors[colorList[i]];
+        context.textAlign = "center";
+        var str = (i+1).toString();
+       context.fillText(str,(infoMapCanvas.width*points[result[i]]["width"])*2+30, infoMapCanvas.height*points[result[i]]["height"]*2, 20, 0, 2 * Math.PI, false);
+        
+        if(result[i+1] !== undefined){
+            context.moveTo(infoMapCanvas.width*points[result[i+1]]["width"]*2+30, infoMapCanvas.height*points[result[i+1]]["height"]*2)
+
+        }
+        
+        context.stroke();
+        
     }
-           
-        return context;
-    }
+
+
+    }*/
         
 
     }
     
 }
+
 function drawOk(infoContext,infoCanvas){
-    var yMinus = window.innerWidth > 600 ? 50 : 100;
-    var okYMinus = window.innerWidth > 600? 16: 65
+    var yPos = window.innerWidth > 600 ? infoCanvas.height-150: infoCanvas.height-100;
+    var xPos =  infoCanvas.width/2-37 
+    var okYPos = 33
+    var okXPos = 15
     var rect = {
-        x:infoCanvas.width-90,
-        y:infoCanvas.height-yMinus,
+        x:xPos,
+        y:yPos,
         width:75,
         heigth:50
     };
     
-    document.addEventListener('click', function(evt) {
+    document.addEventListener('click', followClick = function(evt) {
         var mousePos = getMousePos(infoCanvas, evt);
         if (isInside(mousePos,rect)) {
             closeNav()
         }	
     }, false);
-    
+ 
     infoContext.beginPath();
-    infoContext.rect(infoCanvas.width-90, infoCanvas.height-yMinus, 75, 50); 
+    infoContext.rect(xPos, yPos, 75, 50); 
     infoContext.fillStyle = '#FFFFFF'; 
     infoContext.fillStyle = 'rgba(225,225,225,0.5)';
-    infoContext.fillRect(infoCanvas.width-90,infoCanvas.height-yMinus,75,50);
+    infoContext.fillRect(xPos,yPos,75,50);
     infoContext.fill(); 
     infoContext.lineWidth = 2;
     infoContext.strokeStyle = '#000000'; 
@@ -422,7 +490,7 @@ function drawOk(infoContext,infoCanvas){
     infoContext.closePath();
     infoContext.font = '20pt Kremlin Pro Web';
     infoContext.fillStyle = '#000000';
-    infoContext.fillText('OK!', infoCanvas.width-75, infoCanvas.height-okYMinus);
+    infoContext.fillText('OK!', xPos+okXPos, yPos+okYPos);
 }
 
 //Function to get the mouse position
@@ -443,18 +511,18 @@ function getMousePos(canvas, event) {
 function isInside(pos, rect){
 	return pos.x > rect.x && pos.x < rect.x+rect.width && pos.y < rect.y+rect.heigth && pos.y > rect.y
 }
-function closeNav() {
+function closeeNav() {
+    console.log("täällä")
     closedNav = true;
     document.body.style.overflow = "auto";
   document.getElementById("mySidenav").style.width = "0";
-  document.removeEventListener("click")
+  document.removeEventListener("click",followClick)
  // document.getElementById("main").style.marginLeft= "0";
 }
 function hide(){
   if(window.innerWidth < 600){
       document.querySelector(".active").classList.remove("active")
   setTimeout(function () {
-      // return the canvas to the state right after we drew the blue rect
      document.querySelector(".page").classList.add("active")
       },5000);
       

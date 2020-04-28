@@ -52,7 +52,7 @@ getColors(){
       "sininen": ["D", "E", "M", "N", "O"]
     }
     }
-    testing(){
+    graph(){
        var tiet= [{ "mista": "A","mihin": "B", "kesto": 3}, {"mista": "B", "mihin": "D","kesto": 2 },
             { "mista": "D","mihin": "A", "kesto": 1 },{"mista": "A","mihin": "C", "kesto": 1},
             {"mista": "C","mihin": "D", "kesto": 5},{"mista": "C","mihin": "E","kesto": 2},
@@ -84,7 +84,7 @@ getColors(){
             graph[tiet[i]["mista"]][tiet[i]["mihin"]] = tiet[i]["kesto"] 
     }
     graph["finish"] ={};
-
+    return graph;
     }
-   
+ 
   }

@@ -1,66 +1,62 @@
-var startPoint
+var startPoint;
 const parents = {};
 const weight = {};
-var storage = new Storage();
-var allowed = /[A-Ra-r]/
+const storage = new Storage();
+const allowed = /[A-Ra-r]/
 var calculated = false;
 var closedNav = true;
-const height= window.innerHeight;
-const width = window.innerWidth;
+var height= window.innerHeight;
+var width = window.innerWidth;
+var animator;
 var reittiDiv = document.getElementById("reittihaku")
-reittiDiv.classList.add("mainList")
-    var linjastot = storage.getLines();
-
-    var points = storage.getPoints();
-    var laskeBtn = document.getElementById("calculateBtn")
-    laskeBtn.addEventListener("click", calculate)
-    let guideList = document.getElementById("guidelist")
-    
+const linjastot = storage.getLines();
+const points = storage.getPoints();
+var laskeBtn = document.getElementById("calculateBtn")
+laskeBtn.addEventListener("click", calculate)
+var guideList = document.getElementById("guidelist")
 var infoDiv = document.getElementById("infoDiv")
-    var graphics= new Graphics()
-    var showMapBtn = document.getElementById("showMap")
-    var infoDivResultHeader= document.getElementById("infoDivResultHeader")
-    const plainMap = new Graphics().drawPlainMap();
-    async function calculate(){
+const graphics= new Graphics()
+var showMapBtn = document.getElementById("showMap")
+var infoDivResultHeader= document.getElementById("infoDivResultHeader")
+const plainMap = new Graphics().drawPlainMap();
 
+function init(){
+   
+}
+
+async function calculate(){
     const graph = storage.getGraph()
     const parents = {};
     const weight = {};
     var visited = []
-       startPoint = document.getElementById("startPoint").value.toUpperCase()
-        let endPoint = document.getElementById("endPoint").value.toUpperCase()
-        let tulos = document.getElementById("tulos")
+    startPoint = document.getElementById("startPoint").value.toUpperCase()
+    let endPoint = document.getElementById("endPoint").value.toUpperCase()
+    let tulos = document.getElementById("tulos")
 
         if(document.getElementById("routeInfoDiv") !==null){
             let remove = document.getElementById("routeInfoDiv")
             remove.parentNode.removeChild(remove)
             let removeMobi = document.getElementById("mobiInfoDiv")
             removeMobi.parentNode.removeChild(removeMobi)
-    
+            
            }
-   
-       /*{
-           document.querySelectorAll("button").forEach((btn) => {if(btn.className !== "constant") btn.parentNode.removeChild(btn)})
-           document.querySelectorAll("h4").forEach((e1) => e1.parentNode.removeChild(e1))
-           document.querySelectorAll("li").forEach((e1) => e1.parentNode.removeChild(e1)) }*/
 
         if(!allowed.test(startPoint) || startPoint.length >1 || !allowed.test(endPoint) || endPoint.length>1){
             alert("Varmista, että lähtö- ja päätepiste ovat kirjaimia väliltä A-R")
+            return -1
         }
-        else if(startPoint === endPoint){
-     alert('Mies astui Globenin edestä taksiin ja sanoi kuskille:\n-Viekää minut Globeniin\n-Olemme siellä, kuski ihmetteli\n Mies kaivoi taskustaan sadan kruunun setelin, antoi sen kuskille ja sanoi:\n-Kiitos, pitäkäkää loput. Mutta älkää ajako ensi kerralla näin kovaa.')
+         if(startPoint === endPoint && startPoint.length > 0){
+            alert('Mies astui Globenin edestä taksiin ja sanoi kuskille:\n-Viekää minut Globeniin\n-Olemme siellä, kuski ihmetteli\n Mies kaivoi taskustaan sadan kruunun setelin, antoi sen kuskille ja sanoi:\n-Kiitos, pitäkäkää loput. Mutta älkää ajako ensi kerralla näin kovaa.')
            // tulos.innerHTML = "Kävellen olisit jo perillä"
+           return -1
         }
       
         else{
-   
             visited.push("start",startPoint)
             var keysToAdd = Object.keys(graph[startPoint])
         
-            
-        for(let i = 0; i<keysToAdd.length; i++){
-
-            graph["start"][keysToAdd[i]] = graph[startPoint][keysToAdd[i]]
+            for(let i = 0; i<keysToAdd.length; i++){
+                graph["start"][keysToAdd[i]] = graph[startPoint][keysToAdd[i]]
         }
         graph[endPoint]["finish"] = 0
         parents[startPoint] = "start"
@@ -69,16 +65,13 @@ var infoDiv = document.getElementById("infoDiv")
         graph["finish"][endPoint] = 1
 
         //dijkstran algoritmi laskee nopeimman reitin graafin painotusten perusteella
-      var calc = dijkstra(graph,weight,parents)
-
-          tulos.innerHTML = "Lyhimmän matkan kesto yhteensä " + calc["distance"] + " aikayksikköä"
-          var result = calc["path"]
-          var linjastoKeys = Object.keys(linjastot)
-          var colorList = getColors(result,linjastoKeys)
-          document.createElement("h3").innerHTML = "Reittiohjeet"
-       
+        var calc = dijkstra(graph,weight,parents)
         
-      
+        tulos.innerHTML = "Lyhimmän matkan kesto yhteensä " + calc["distance"] + " aikayksikköä"
+        var result = calc["path"]
+        var linjastoKeys = Object.keys(linjastot)
+        var colorList = getColors(result,linjastoKeys)
+        document.createElement("h3").innerHTML = "Reittiohjeet"
         var toReturn = [];
         var key = startPoint;
         result.shift()
@@ -94,13 +87,22 @@ var infoDiv = document.getElementById("infoDiv")
                     toReturn.push(str)
                     key = result[i+1]
           }
-          
-           
-          if(window.innerWidth > 600){
+          let tulosStr = tulos.innerHTML;
+      createElements(toReturn,result,colorList,tulosStr)
+         
+        calculated = true;
+        openNav();
+    }
+   
+
+    }
+
+    function createElements(toReturn,result,colorList,tulos){
+        if(window.innerWidth > 600){
             guideList.hidden = true;
          }
          var resultText = document.createElement("h4")
-         resultText.innerHTML = tulos.innerHTML
+         resultText.innerHTML = tulos
        
         
          resultText.style.textAlign = "center"
@@ -114,8 +116,7 @@ var infoDiv = document.getElementById("infoDiv")
          mobiInfoDiv.appendChild(resultText)
 
          let uList = document.createElement("ol")
-         uList.appendChild(tulos)
-      let enter = document.createElement("br")
+        // uList.appendChild(tulos)
           for(let i = 0; i < toReturn.length; i++){
             var ohje = document.createElement("li")
             var button = document.createElement("button")
@@ -147,25 +148,18 @@ var infoDiv = document.getElementById("infoDiv")
           }
           guideList.appendChild(mobiInfoDiv)
           guideList.classList.add("mobiList")
-          
+          animator = graphics.drawImage(result,startPoint,points,colorList,toReturn)
+
           routeInfoDiv.appendChild(uList)
        // infoDiv.appendChild(routeInfoDiv)
           reittiDiv.appendChild(routeInfoDiv)
-          var animator = graphics.drawImage(result,startPoint,points,colorList,toReturn)
-        calculated = true;
-        openNav();
     }
-
-    }
-
-
-
+ 
     function openNav() {
         closedNav= false;
-   
         var size = window.innerWidth >600 ? window.innerWidth/2 : window.innerWidth;
         document.getElementById("mySidenav").style.width = size+"px"
-     window.innerWidth < 600 ? document.body.style.overflow = "hidden" : reittiDiv.style.marginRight = size+50+"px"
+     if(window.innerWidth < 600) { document.body.style.overflow = "hidden" }
       
 
 
@@ -181,7 +175,7 @@ var infoDiv = document.getElementById("infoDiv")
             newSize = window.innerWidth/2;
             infoDiv.hidden = true;
             guideList.hidden = true
-
+            console.log("klikattu ja täällä")
             reSizeLarge(newSize);
            
             }
@@ -225,33 +219,36 @@ var infoDiv = document.getElementById("infoDiv")
         }
 
 
-      }
-      
+      };
+     
       function closeNav() {
-          closedNav = true;
-         document.body.style.overflow = "auto";
-        document.getElementById("mySidenav").style.width = "0";
+         
+        if(window.event.srcElement.id === "nappula" || window.event.srcElement.id === "karttaDiv" || window.event.srcElement.id === "infoCanvas"){
+            closedNav = true;
+            document.body.style.overflow = "auto";
+           document.getElementById("mySidenav").style.width = "0";
+           reittiDiv.classList.add("released")
+          // document.getElementById("main").style.marginLeft= "0";
+         }}
+       function hide(){
+           if(window.innerWidth < 600){
+               document.querySelector(".active").classList.remove("active")
       
-        reittiDiv.classList.add("released")
-       // document.getElementById("main").style.marginLeft= "0";
-      }
-    function hide(){
-        if(window.innerWidth < 600){
-            document.querySelector(".active").classList.remove("active")
-   
-            
-           document.querySelector(".page").classList.add("active")
-      
+               
+              document.querySelector(".page").classList.add("active")
+         
+              
+               
+                   }
+                
+              
            
             
-                }
-             
-           
-        }
-    function drawPlainMap(){
         
-    }
-
+else{
+    return -1
+}
+}
     function getColors(result,linjastoKeys){
         var list= [];
         for(let i = 0; i<result.length-1; i++){
@@ -353,3 +350,9 @@ function getKesto(start,end){
 return check
 }
 
+document.addEventListener('DOMContentLoaded', function(){
+    console.log("kutsutaan")
+    new Graphics().drawPlainMap();
+    openNav();
+    infoDiv.hidden =true
+});
