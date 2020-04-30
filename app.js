@@ -62,7 +62,7 @@ async function calculate(){
         for(let i = 0; i<keysToAdd.length; i++){
                 graph["start"][keysToAdd[i]] = graph[startPoint][keysToAdd[i]]
         }
-        //Asetetaan päätepiste avaimeksi painotettuun graafiin ja sille avain finish, jonka valueksi tulle nolla, 
+        //Asetetaan päätepiste avaimeksi painotettuun graafiin ja sille avain finish, jonka valueksi tulee nolla, 
         //koska matkan kesto ei enää lisäänny kun päätepiste on saavutettu
         graph[endPoint]["finish"] = 0
         //asetetaan parents objektin keyksi lähtöpiste ja sen valueksi "start"
@@ -73,13 +73,13 @@ async function calculate(){
 
         //dijkstran algoritmi laskee nopeimman reitin graafin painotusten perusteella
         var calc = dijkstra(graph,weight,parents)
-        //Otetaan lasketusta tuloksesta length, eli tässä tapauksessa matkan kesto
+        //Otetaan lasketusta tuloksesta length, eli matkan kesto
         tulos.innerHTML = "Lyhimmän matkan kesto yhteensä " + calc["length"] + " aikayksikköä"
         //Otetaan lasketusta tuloksesta path, eli reitti, jota pitkin päästään nopeiten perille
         const result = calc["path"]
         //Linjastojen värit
         const linjastoKeys = Object.keys(linjastot)
-        //getColors palauttaa listan, joka sisältää reitissä käytettävien linjojen värit
+        //getColors palauttaa listan, joka sisältää lasketussa reitissä käytettävien linjojen värit
         var colorList = getColors(result,linjastoKeys)
         document.createElement("h3").innerHTML = "Reittiohjeet"
         var toReturn = [];
@@ -91,8 +91,6 @@ async function calculate(){
        
         //Lisätään reittiohjeet listaan lasketun reitin perusteella
         for(let i =0; i < result.length-1; i++){
-               // var ohje = document.createElement("h3")
-               // ohje.innerHTML = "Valitse "+ colorList[i-1]+" linja ja matkusta kohteeseen " + result[i]
                //Haetaan kulloisenkin etapin kesto graafista 
                 let time = graph[result[i]][result[i+1]];
                 var str = "Valitse "+ colorList[i]+" linja ja matkusta kohteesta "+ key + " kohteeseen " + result[i+1] +". " + "Matkan kesto " + time  + " aikayksikköä. "
@@ -102,7 +100,7 @@ async function calculate(){
         let tulosStr = tulos.innerHTML;
         //Luo käyttäjälle näkyvät reittiohjeet sivulle
         createElements(toReturn,result,colorList,tulosStr)
-        //Asetetaan calculated arvoksi tosi, jotta graafiikkapuoli hoituu paremmin
+        //Asetetaan calculated arvoksi tosi, jotta graafiikkapuolta on helpompi käsitellä
         calculated = true;
         //Avataan kartta
         openNav();
@@ -170,13 +168,13 @@ function openNav() {
     calculated ? (window.dispatchEvent(new Event('resize')),infoDiv.hidden =false, showMapBtn.innerHTML = "Näytä kartta"): (plainMap, infoDiv.hidden =true);
     //Lisätään ikkunalle kuuntelija, joka reagoi näytön koon muuttamiseen
     window.addEventListener('resize', resizeSideNav, false);
-    //Mikäli näytön koko muutetaan, lasketaan uudet arvot sivupalkille
+    //Mikäli ikkunan koko muutetaan, lasketaan uudet arvot sivupalkille
     function resizeSideNav() {
         if(window.innerWidth > 600){
             newSize = window.innerWidth/2;
             infoDiv.hidden = true;
             guideList.hidden = true
-            reSizeLarge(newSize);
+            reSize(newSize);
            
         }
         else{
@@ -185,17 +183,17 @@ function openNav() {
                 newSize = window.innerWidth;
                 guideList.hidden = false;
                 infoDiv.hidden =false;
-                reSizeSmall(newSize);
+                reSize(newSize);
             }
             else{
                 return -1;
             }
         }
     }
-    function reSizeLarge(newSize){
+    //Reagoi ikkunan koon muuttamiseen
+    function reSize(newSize){
         if(!closedNav){
             document.getElementById("mySidenav").style.width = newSize+"px"
-            // reittiDiv.style.marginRight = newSize+50+"px"
         }
         else{
             document.body.style.overflow = "auto"
@@ -203,14 +201,14 @@ function openNav() {
 
     }
         
-    function reSizeSmall(newSize){
+    /*function reSizeSmall(newSize){
         if(!closedNav){
             document.getElementById("mySidenav").style.width = newSize+"px"
         }
         else{
         document.body.style.overflow = "auto"
         }
-    }
+    }*/
 
 
 }
