@@ -45,11 +45,13 @@ async function calculate(){
     //Tarkastetaan käyttäjän syöte
     if(!allowed.test(startPoint) || startPoint.length >1 || !allowed.test(endPoint) || endPoint.length>1){
         alert("Varmista, että lähtö- ja päätepiste ovat kirjaimia väliltä A-R")
+        tulos.innerHTML = ""
         return -1
     }
     //Väännetään vähän vitsiä
     if(startPoint === endPoint && startPoint.length > 0){
         alert('Mies astui Globenin edestä taksiin ja sanoi kuskille:\n-Viekää minut Globeniin\n-Olemme siellä, kuski ihmetteli\n Mies kaivoi taskustaan sadan kruunun setelin, antoi sen kuskille ja sanoi:\n-Kiitos, pitäkäkää loput. Mutta älkää ajako ensi kerralla näin kovaa.')
+        tulos.innerHTML= ""
         return -1
     }
     //Mikäli syöte hyväksytään, siirrytään itse reitin laskemiseen
@@ -99,7 +101,7 @@ async function calculate(){
           }
         let tulosStr = tulos.innerHTML;
         //Luo käyttäjälle näkyvät reittiohjeet sivulle
-        createElements(toReturn,result,colorList,tulosStr)
+        await createElements(toReturn,result,colorList,tulosStr)
         //Asetetaan calculated arvoksi tosi, jotta graafiikkapuolta on helpompi käsitellä
         calculated = true;
         //Avataan kartta
@@ -109,16 +111,18 @@ async function calculate(){
 
 }
 //Luo käyttäjälle näkyvät reittiohjeet sivulle
-function createElements(toReturn,result,colorList,tulos){
+async function createElements(toReturn,result,colorList,tulos){
     if(window.innerWidth > 600){
             guideList.hidden = true;
     }
+    //luodaan ja lisätään elementtejä sivulle
     var resultText = document.createElement("h4")
     var routeInfoDiv = document.createElement("div")
     var mobiInfoDiv = document.createElement("div")
     var uList = document.createElement("ol")
     resultText.innerHTML = tulos
     resultText.style.textAlign = "center"
+    resultText.id = "resultText"
     routeInfoDiv.appendChild(resultText)
     routeInfoDiv.id = "routeInfoDiv"
     mobiInfoDiv.id = "mobiInfoDiv"
@@ -131,14 +135,18 @@ function createElements(toReturn,result,colorList,tulos){
             var listOhje = document.createElement('label')
             var listItem = document.createElement("li")
             button.innerHTML = "Näytä kartalla"
-            button.onclick= function(){ if (document.getElementById("mySidenav").style.width==="0px" || document.getElementById("mySidenav").style.width === undefined){openNav()}animator(toReturn,colorList[i],points[result[i]]["width"],points[result[i]]["height"],points[result[i+1]]["width"],points[result[i+1]]["height"])}
+            //Asetetaan toiminnallisuudet näppäimille, kutsuu mm. funktion, joka piirtää nuolen kartalle
+            button.onclick= async function(){ if (document.getElementById("mySidenav").style.width==="0px" || document.getElementById("mySidenav").style.width === undefined){openNav()}
+            await animator(toReturn,colorList[i],points[result[i]]["width"],points[result[i]]["height"],points[result[i+1]]["width"],points[result[i+1]]["height"])}
+          
+            
             ohje.innerHTML = toReturn[i]
             ohje.appendChild(button)
             uList.appendChild(ohje) 
             uList.classList.add("mainList")
             listButton.className = "button"
             listButton.innerHTML = "Näytä >>>"
-            listButton.onclick= function(){ if (document.getElementById("mySidenav").style.width==="0px" || document.getElementById("mySidenav").style.width === undefined){openNav()}animator(toReturn,colorList[i],points[result[i]]["width"],points[result[i]]["height"],points[result[i+1]]["width"],points[result[i+1]]["height"])}
+            listButton.onclick= async function(){ if (document.getElementById("mySidenav").style.width==="0px" || document.getElementById("mySidenav").style.width === undefined){openNav()} await animator(toReturn,colorList[i],points[result[i]]["width"],points[result[i]]["height"],points[result[i+1]]["width"],points[result[i+1]]["height"])}
             listOhje.innerHTML = toReturn[i]
             listItem.appendChild(listOhje)
             listItem.appendChild(listButton)
@@ -146,15 +154,27 @@ function createElements(toReturn,result,colorList,tulos){
 
     
         }
-        
+    
         guideList.appendChild(mobiInfoDiv)
         guideList.classList.add("mobiList")
+        //Luodaan objekti, joita nappulat kutsuvat. JavaScriptin hienouksia
         animator = graphics.drawImage(result,startPoint,points,colorList,toReturn)
         routeInfoDiv.appendChild(uList)
         reittiDiv.appendChild(routeInfoDiv)
     }
  //Avaa kartan
 function openNav() {
+    if(window.innerWidth > 600){
+    try{
+        reittiDiv.classList.remove("released")
+       reittiDiv.classList.add("opened")
+
+    }
+    catch(error){
+
+    }
+}
+    
     closedNav= false;
     //Karttapaneelin koko. Mikäli ikkunan leveys on yli 600 pikseliä, jaetaan ikkunan leveys kahdella
     var size = window.innerWidth >600 ? window.innerWidth/2 : window.innerWidth;
@@ -201,26 +221,23 @@ function openNav() {
 
     }
         
-    /*function reSizeSmall(newSize){
-        if(!closedNav){
-            document.getElementById("mySidenav").style.width = newSize+"px"
-        }
-        else{
-        document.body.style.overflow = "auto"
-        }
-    }*/
-
 
 }
 //Sulkee sivupalkin
 function closeNav() {
     //Jostain syystä sivustolle jäi kummittelemaan haamunappula, joka sulki sivupalkin pelkästään tietyn divin klikkaamisen perusteella,
-    //joten pakko tarkistaa mikä elementti kutsuu funktiota
+    //joten pakko manuaalisesti tarkistaa mikä elementti kutsuu funktiota
     if(window.event.srcElement.id === "nappula" || window.event.srcElement.id === "karttaDiv" || window.event.srcElement.id === "infoCanvas"){
         closedNav = true;
         document.body.style.overflow = "auto";
         document.getElementById("mySidenav").style.width = "0";
-        reittiDiv.classList.add("released")
+        try{
+        document.querySelector(".opened").classList.remove("opened")
+        reittiDiv.classList.add("released")}
+        catch(error){
+
+        }
+console.log(reittiDiv.classList)
     }
 }
 
@@ -234,7 +251,9 @@ function hide(){
             return -1
         }
 }
-//Palauttaa listan, jossa on lasketun reitin värit
+
+
+//Palauttaa listan, jossa on lasketussa reitissä käytettävien linjojen värit
 function getColors(result,linjastoKeys){
         var list= [];
         for(let i = 0; i<result.length-1; i++){
@@ -247,6 +266,8 @@ function getColors(result,linjastoKeys){
                 } 
            }
            else{ 
+             //Vaikka eri värisiä linjoja pitkin pääsee perille, on silti matkustajalle ehkä mukavampaa käyttää saman väristä linjaa kuin
+             //edellisellä etappivälillä, joten tarkistamme onko se mahdollista, mikäli ei ole, vasta sitten vaihdamme linjan väriä.
                for(let j= 0; j < linjastoKeys.length; j++){
                     if(linjastot[linjastoKeys[j]].includes(result[i-1]) && linjastot[linjastoKeys[j]].includes(result[i])){ 
                         if(linjastot[list[list.length-1]].includes(result[i-1]) && linjastot[list[list.length-1]].includes(result[i])){
@@ -335,16 +356,11 @@ const dijkstra = (graph) => {
 
 };
 
-/*
-function getKesto(start,end){
-    var check = tiet.filter((e1 => { if(e1["mista"] === start && e1["mihin"] === end || e1["mihin"] === start && e1["mista"] === end) return e1["kesto"]} ))
-    return check
-}*/
-
 
 //Avataan ohjeistus käyttäjälle kun hän ensimmäisen kerran saapuu sivulle
 document.addEventListener('DOMContentLoaded', function(){
     new Graphics().drawPlainMap();
+    reittiDiv.classList.add("opened")
     openNav();
     infoDiv.hidden =true
 });

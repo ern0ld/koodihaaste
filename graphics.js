@@ -1,11 +1,11 @@
-
+//Käsitellään grafiikkapuolta.
 class Graphics
 {      
 
     constructor(){
     }
 
-
+//Piirtää kartan laskettujen reittiohjeiden perusteella
     drawImage(result,startPoint,points,colorList,guides){
         const colors = {"vihrea" : "#22b14c", "keltainen" : "yellow", "sininen" : "blue", "punainen" : "red"}
         var img = new Image(640,480)
@@ -17,21 +17,21 @@ class Graphics
         document.getElementById("infoCanvas").hidden = true;
         var ctx = htmlCanvas.getContext("2d");
     
-           // Start listening to resize events and draw canvas.
+           // Piirretään kartta ja seurataan ikkunan koon muutoksia
            function initialize() {
-               // Register an event listener to call the resizeCanvas() function 
-               // each time the window is resized.
+             
                window.addEventListener('resize', resizeCanvas, false);
-               // Draw canvas border for the first time.
+               
                resizeCanvas();
             }
     
-           
+           //Piirtää kartan, tätä kutsutaan resizeCanvas-funktiosta, mikäli ikkunan kokoa muutetaan
             function redraw() {
                 var imgWidth = parseInt(document.getElementById("mySidenav").style.width)
+                //Piirretään kartta canvakselle
                 ctx.drawImage(img, 0, 0, imgWidth, img.height);
                 ctx.lineWidth = 3;
-          
+                //Lisätään ympyröidyt reittiohjeet canvakselle määritettyjen pisteiden perusteella (löytyvät storage.js-tiedostosta)
                 for(let i = 0; i < result.length; i++){
                     if(i !== result.length-1){
                         ctx.beginPath();
@@ -42,7 +42,7 @@ class Graphics
                     }
                        
                 }
-    
+                //Lisätään numerointi ja päätepiste canvakselle
                 for(let i = 0; i < result.length; i++){
                         ctx.beginPath();
                         ctx.font = "2vw Kremlin Pro Web";
@@ -63,6 +63,7 @@ class Graphics
                 }
 
              }
+             //Samat toiminnot kuin ylempänä reDraw-funktiossa, mutta hieman erilaisilla arvoilla ikkunan koon vuoksi
             function redrawSmall() {
                 ctx.drawImage(img,0 , 0, img.width, img.height);
                 ctx.lineWidth = 3;
@@ -99,9 +100,8 @@ class Graphics
                 }
             }
     
-            // Runs each time the DOM window resize event fires.
-            // Resets the canvas dimensions to match window,
-            // then draws the new borders accordingly.
+            // Kutsutaan joka kerta kun ikkunan koko muuttuu
+            // Asettaa uuden koon canvakselle ja piirtää kartan ja ohjeet uudestaan niiden perusteella
             function resizeCanvas() {
                 if(window.innerWidth > 600){
                     htmlCanvas.width = window.innerWidth/2;
@@ -118,44 +118,60 @@ class Graphics
                     redrawSmall();
                 }
             }
-           function animate (guides,color,startX,startY,width,height){
-           
-                if(window.innerWidth <600){ 
-                    height /=2
-                    startY /=2;
-                    var canvas = document.querySelector('canvas'),
-                    context = canvas.getContext('2d');
-                    context.beginPath();
-                    context.moveTo(htmlCanvas.width*width*2+20, htmlCanvas.height*height*2)
-                    context.arc(canvas.width*width*2, canvas.height*height*2, 25, 0, 2 * Math.PI, false);
-                    context.lineWidth = 4;
-                    context.strokeStyle = colors[color];
-                    context.stroke();
-                    context.beginPath();
-                    canvas_arrow(context, htmlCanvas.width*startX*2, htmlCanvas.height*startY*2, htmlCanvas.width*width*2, htmlCanvas.height*height*2);
-                    context.stroke();
-                }
-                 else{
-                    var canvas = document.querySelector('canvas'),
-                    context = canvas.getContext('2d');
-                    context.beginPath();
-                    context.moveTo(htmlCanvas.width*width*2+35, htmlCanvas.height*height*2)
-                    context.arc(canvas.width*width*2, canvas.height*height*2, 35, 0, 2 * Math.PI, false);
-                    context.lineWidth = 5;
-                    context.strokeStyle = colors[color];
-                    context.stroke();
-                    context.beginPath();
-                    canvas_arrow(context, htmlCanvas.width*startX*2, htmlCanvas.height*startY*2, htmlCanvas.width*width*2, htmlCanvas.height*height*2);
-                    context.stroke();
-                }
-                setTimeout(function () {
-            // return the canvas to the state right after we show the arrow
-                    resizeCanvas()  
-                }, 3000);
-        
+            //Reittiohjeiden animointi kun käyttäjä painaa näytä-nappulaa
+          async function animate (guides,color,startX,startY,width,height){
+            if(window.innerWidth <600){ 
+                height /=2
+                startY /=2;
+                var canvas = document.querySelector('canvas'),
+                context = canvas.getContext('2d');
+                context.beginPath();
+                context.moveTo(htmlCanvas.width*width*2+20, htmlCanvas.height*height*2)
+                context.arc(canvas.width*width*2, canvas.height*height*2, 25, 0, 2 * Math.PI, false);
+                context.lineWidth = 4;
+                context.strokeStyle = colors[color];
+                context.stroke();
+                context.beginPath();
+                canvas_arrow(context, htmlCanvas.width*startX*2, htmlCanvas.height*startY*2, htmlCanvas.width*width*2, htmlCanvas.height*height*2);
+                context.stroke();
             }
+             else{
+                var canvas = document.querySelector('canvas'),
+                context = canvas.getContext('2d');
+                context.beginPath();
+                context.moveTo(htmlCanvas.width*width*2+35, htmlCanvas.height*height*2)
+                context.arc(canvas.width*width*2, canvas.height*height*2, 35, 0, 2 * Math.PI, false);
+                context.lineWidth = 5;
+                context.strokeStyle = colors[color];
+                context.stroke();
+                context.beginPath();
+                canvas_arrow(context, htmlCanvas.width*startX*2, htmlCanvas.height*startY*2, htmlCanvas.width*width*2, htmlCanvas.height*height*2);
+                context.stroke();
+            }
+            //Viivästetään animointia hetki ja kutsutaan sen jälkeen resizeCanvas-funktiota, jolloin canvaksen sisältö piirretään uudestaan
+            //ja animointi häviää
+            const setAsyncTimeout = (cb, timeout = 0) => new Promise(resolve => {
+                setTimeout(() => {
+                    cb();
+                    resolve();
+                }, timeout);
+            });
+             const redraw = async() => {
+                  await setAsyncTimeout(() =>{
+               resizeCanvas();
+            },4000);
+            await setAsyncTimeout(() => {
+               
+            }, 4000);
+        }
+        redraw();
+      
+    }
+           
+
+            //Funktio reittiohjeen nuolen piirtämiseksi
             function canvas_arrow(context, fromx, fromy, tox, toy) {
-                var headlen = 20; // length of head in pixels
+                var headlen = 20; 
                 var dx = tox - fromx;
                 var dy = toy - fromy;
                 var angle = Math.atan2(dy, dx);
@@ -169,8 +185,8 @@ class Graphics
             return animate
        
     }
-
-
+   
+//Piirtää ohjekartan ennen kuin hakuja on suoritettu, toimii samalla periaatteella kuin ylemmät
     drawPlainMap(){
             var img = new Image(640,480)
             const storage = new Storage(); 
@@ -207,11 +223,11 @@ class Graphics
                 infoMapCanvas.height = window.innerHeight/2;
                 img.width = window.innerWidth/2
                 img.height = window.innerHeight/2
-                redraw();
-            if(infotime){
+               redraw();
+           if(infotime){
                 showInfo();
-              
-            }
+           }
+            
             }
             else{
                 infoMapCanvas.width = window.innerWidth;
@@ -219,14 +235,14 @@ class Graphics
                 img.width = window.innerWidth
                 img.height = window.innerHeight/2
                 redrawSmall();
-                if(infotime){
+             if(infotime){
                     showSmallInfo();
-         
-                }
+             }
+                
             }
                 
         }
-         
+         //Näytetään ohjeet käyttäjälle piirtämällä ne alemmalle canvakselle
         function showSmallInfo(){
                 let infoCanvas = document.getElementById("infoCanvas");
                 var infoContext = infoCanvas.getContext("2d");
@@ -235,23 +251,25 @@ class Graphics
                 infoCanvas.height = window.innerHeight;
                 drawOk(infoContext,infoCanvas);
                 infoContext.lineWidth = 3;
-                infoContext.font = "5vw Kremlin Pro Web";
-                infoContext.fillStyle = 'white';
-                const text ="Tervetuloa reittihakuun."
+                
+                infoContext.fillStyle = "#b6b6b6";
+                const welcome ="Tervetuloa reittihakuun"
                 const text2="Yllä näet esimerkin haun tuloksesta kartalla,"
-                const text3 ="lähtöpisteenä A ja päätepisteenä R."
+                const text3 ="lähtöpisteenä H ja päätepisteenä Q."
                 const text4 = "Haun tulokset tulevat näkyviin eriteltynä listana, "
                 const text5 = "jossa jokaista etappia voi tarkastella erikseen."
                 infoContext.beginPath();
                 var yPosition = window.innerHeight/2;
                 infoContext.moveTo(10,400)
-                infoContext.fillText(text, 10, yPosition+50,infoCanvas.width-20, 0, 2 * Math.PI, false);
-                infoContext.fillText(text2, 10, yPosition+80,infoCanvas.width-20, 0, 2 * Math.PI, false);
-                infoContext.fillText(text3, 10, yPosition+110,infoCanvas.width-20, 0, 2 * Math.PI, false);
+                infoContext.font = "7vw Kremlin Pro Web";
+                infoContext.fillText(welcome, infoCanvas.width/6, yPosition+50,infoCanvas.width-20, 0, 2 * Math.PI, false);
+                infoContext.font = "5vw Kremlin Pro Web";
+                infoContext.fillText(text2, 20, yPosition+100,infoCanvas.width-20, 0, 2 * Math.PI, false);
+                infoContext.fillText(text3, 20, yPosition+130,infoCanvas.width-20, 0, 2 * Math.PI, false);
                 infoContext.stroke();
                 infoContext.moveTo(10,yPosition+160)
-                infoContext.fillText(text4, 10, yPosition+160,infoCanvas.width-20, 0, 2 * Math.PI, false);
-                infoContext.fillText(text5,10,yPosition+190, infoCanvas.width-20, 0, 2 * Math.PI, false);
+                infoContext.fillText(text4, 20, yPosition+180,infoCanvas.width-20, 0, 2 * Math.PI, false);
+                infoContext.fillText(text5,20,yPosition+210, infoCanvas.width-20, 0, 2 * Math.PI, false);
                 infoContext.stroke();
                  
         }
@@ -262,21 +280,25 @@ class Graphics
                 infoCanvas.width = window.innerWidth/2;
                 infoCanvas.height = window.innerHeight/2;
                 infoContext.lineWidth = 3;
-                infoContext.font = "2.5vw Kremlin Pro Web";
-                infoContext.fillStyle = 'white';
-                const text ="Yllä näet linjojen värit ja esimerkin haun tuloksesta,"
-                const text2 = "lähtöpisteenä A ja päätepisteenä R."
-                const text3 = "Haun tulokset tulevat näkyviin eriteltynä listana,"
-                const text4 = "jossa jokaista etappia voi tarkastella erikseen"
+               // infoContext.font = "2vw Kremlin Pro Web";
+                infoContext.fillStyle = "#b6b6b6";
+                const welcome = "Tervetuloa Reittihakuun"
+                const text ="Yllä näet linjojen värit ja esimerkin haun tuloksesta ympyröityinä etappeina,"
+                const text2 = "lähtöpisteenä H ja päätepisteenä Q."
+                const text3 = "Haun tulokset tulevat näkyviin eriteltynä listana, jossa jokaista etappia voi"
+                const text4 = "tarkastella erikseen painamalla listan Näytä-näppäintä."
                 infoContext.beginPath();
                 infoContext.moveTo(0,0)
-                infoContext.fillText(text, 10, 50,infoCanvas.width-30, 0, 2 * Math.PI, false);
+                infoContext.font = "2vw Kremlin Pro Web";
+                infoContext.fillText(welcome, infoCanvas.width/3.5, 30,infoCanvas.width-30, 0, 2 * Math.PI, false);
+                infoContext.font = "1.5vw Kremlin Pro Web";
+                infoContext.fillText(text, 20, 70,infoCanvas.width-30, 0, 2 * Math.PI, false);
                 infoContext.moveTo(10,infoCanvas.width-50)
-                infoContext.fillText(text2,10, 85, infoCanvas.width-30, 0, 2 * Math.PI, false);
+                infoContext.fillText(text2,20, 100, infoCanvas.width-30, 0, 2 * Math.PI, false);
                 infoContext.stroke();
-                infoContext.fillText(text3,10, 125, infoCanvas.width-30, 0, 2 * Math.PI, false);
+                infoContext.fillText(text3,20, 140, infoCanvas.width-30, 0, 2 * Math.PI, false);
                 infoContext.stroke();
-                infoContext.fillText(text4,10, 160, infoCanvas.width-30, 0, 2 * Math.PI, false);
+                infoContext.fillText(text4,20, 170, infoCanvas.width-30, 0, 2 * Math.PI, false);
                 infoContext.stroke();
             
                 drawOk(infoContext,infoCanvas)
@@ -286,6 +308,7 @@ class Graphics
     }
     
 }
+//funktio päätepisteen tähden piirtämiseksi
 function drawStar(cx,cy,outerRadius,innerRadius,ctx,color){
     var rot=Math.PI/2*3;
     var x=cx;
@@ -311,10 +334,9 @@ function drawStar(cx,cy,outerRadius,innerRadius,ctx,color){
     ctx.lineWidth=3;
     ctx.strokeStyle=color;
     ctx.stroke();
-   // ctx.fillStyle='skyblue';
-    //ctx.fill();
+  
   }
-
+//Funktio jolla kirjoitetaan OK tai Sulje canvakselle riippuen näytön koosta
 function drawOk(infoContext,infoCanvas){
     var yPos = window.innerWidth > 600 ? infoCanvas.height-150: infoCanvas.height-100;
     var xPos =  infoCanvas.width/2-37 
@@ -326,7 +348,7 @@ function drawOk(infoContext,infoCanvas){
         width:75,
         heigth:50
     };
-    
+    //Seurataan käyttäjän toimintaa, mikäli canvasta painetaan oikeasta kohdasta, eli missä Sulje/OK-nappula sijaitsee, suljetaan sivupalkki
     document.addEventListener('click', followClick = function(evt) {
         var mousePos = getMousePos(infoCanvas, evt);
         if (isInside(mousePos,rect)) {
@@ -346,10 +368,11 @@ function drawOk(infoContext,infoCanvas){
     infoContext.closePath();
     infoContext.font = '20pt Kremlin Pro Web';
     infoContext.fillStyle = '#000000';
-    infoContext.fillText('OK!', xPos+okXPos, yPos+okYPos);
+    window.innerWidth > 600 ?  infoContext.fillText('Sulje', xPos+10, yPos+okYPos) : infoContext.fillText('OK!', xPos+okXPos, yPos+okYPos);
+    
 }
 
-//Function to get the mouse position
+//Seurataan käyttäjän hiiren tai napautuksen sijaintia
 function getMousePos(canvas, event) {
     var rect = canvas.getBoundingClientRect();
         return {
@@ -357,31 +380,7 @@ function getMousePos(canvas, event) {
             y: event.clientY - rect.top
         };
 }
-
-function getMousePos(canvas, event) {
-	var rect = canvas.getBoundingClientRect();
-	    return {
-		    x: event.clientX - rect.left,
-		    y: event.clientY - rect.top
-	    };
-}
+//Tarkastaa onko käyttäjä painanut Sulje/OK-nappulaa, eli mihin kohtaan canvasta käyttäjä painoi
 function isInside(pos, rect){
 	return pos.x > rect.x && pos.x < rect.x+rect.width && pos.y < rect.y+rect.heigth && pos.y > rect.y;
 }
-/*function closeeNav() {
-    closedNav = true;
-    document.body.style.overflow = "auto";
-    document.getElementById("mySidenav").style.width = "0";
-    document.removeEventListener("click",followClick)
-}
-function hide(){
-  if(window.innerWidth < 600){
-      document.querySelector(".active").classList.remove("active")
-  setTimeout(function () {
-     document.querySelector(".page").classList.add("active")
-      },5000);
-      
-          }
-       
-     
-  }*/

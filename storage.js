@@ -1,3 +1,4 @@
+//Täällä on varastossa koodihaasteessa annettu data
 class Storage {
 constructor(){}
     getGraph(){
@@ -22,6 +23,8 @@ constructor(){}
 "R": {"Q": 5, "N":3, "D": 6},
 "finish": {}}
     }
+
+    //Pisteet joiden avulla reittiohjeet voidaan piirtää canvakselle
     getPoints(){
         return {"A" :{"width" : 0.042, "height" : 0.466},
         "B" :{"width" : 0.135, "height" : 0.466},
@@ -52,6 +55,8 @@ getColors(){
       "sininen": ["D", "E", "M", "N", "O"]
     }
     }
+
+    //Algoritmi jolla getGraph()-funktiossa palautettava graafi on alunperin luotu. Laskenta ei ole halpaa, joten en luo graafia joka haussa uusiksi
     graph(){
        var tiet= [{ "mista": "A","mihin": "B", "kesto": 3}, {"mista": "B", "mihin": "D","kesto": 2 },
             { "mista": "D","mihin": "A", "kesto": 1 },{"mista": "A","mihin": "C", "kesto": 1},
