@@ -15,7 +15,7 @@ näet kartalla lyhyen animaation nuolesta, joka osoittaa kulloisenkin etappiväl
 ## Tekniikat
 
 * Vanilla JavaScript
-* Single page application-tekniikka. Sopi mielestäni hyvin tähän, koska sivuston ei tarvitse esimerkiksi lähettää pyyntöjä palvelimelle missään vaiheessa. Mahdollistaa sulavan käyttökokemuksen muokkautumalla dynaamisesti. Käyttäjän syöttämien pisteiden välisen matkan kesto lasketaan Dijsktran algoritmin avulla ja piirretään canvakselle Solidabiksen sivuilta kuvana otettuun karttaan. Sivulle lisätään listaelementteinä reittiohjeet jokaisesta etapista ja jo sivuilla olemassaolevat elementit poistetaan ja luodaan uudet mikäli suoritetaan uusi haku. Päivitettäessä sivu palautuu alkutilaan ja ohje ilmestyy esiin.
+* Single page application-tekniikka. Sopi mielestäni hyvin tähän, koska sivuston ei tarvitse esimerkiksi lähettää pyyntöjä palvelimelle missään vaiheessa. Mahdollistaa sulavan käyttökokemuksen muokkautumalla dynaamisesti. Käyttäjän syöttämien pisteiden välisen matkan kesto lasketaan Dijsktran algoritmin avulla ja piirretään canvakselle Solidabiksen sivuilta kuvana otettuun karttaan. Sivulle lisätään listaelementteinä reittiohjeet jokaisesta etapista ja jo sivuilla olemassaolevat elementit poistetaan ja luodaan uudet, mikäli käyttäjä suorittaa uuden haun. Päivitettäessä sivu palautuu alkutilaan ja ohje ilmestyy esiin.
 
 ## Tekijä
 
