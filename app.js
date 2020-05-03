@@ -235,9 +235,8 @@ function closeNav() {
         document.querySelector(".opened").classList.remove("opened")
         reittiDiv.classList.add("released")}
         catch(error){
-
         }
-console.log(reittiDiv.classList)
+
     }
 }
 

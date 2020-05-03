@@ -13,16 +13,21 @@ background-attachment: fixed;
 .h1{
     color : #c7273e;
 }
-
+#tulos{
+  color: #2d2d3d;
+ }
+ h2{
+   color:#2d2d3d
+ }
 
 
   
 /*Suuren näytön tyyli*/
 @media only screen and (min-width: 600px){
   .constant {
-    background-color:#44c767;
+    background-color:#2d2d3d;
     border-radius:8vw;
-    border:1px solid #18ab29;
+    border:2px solid #1a1897;;
     display:inline-block;
     cursor:pointer;
     color:#ffffff;
@@ -33,7 +38,7 @@ background-attachment: fixed;
     text-shadow:0px 1px 0px #2f6627;
   }
   .constant:hover {
-    background-color:#5cbf2a;
+    background-color:#1d1d22;
   }
   .constant:active {
     position:relative;
@@ -71,11 +76,13 @@ background-attachment: fixed;
       margin: 0 25px 0 0;
       padding: 13px;
       position: relative;
+      text-align: left;
       top: 1em;
       border-radius:  1em 2px 1em 1em;
       padding-left: 2em;
       font-size: 1em;
       font-family: Constantia;
+
      
 
     
@@ -84,22 +91,21 @@ background-attachment: fixed;
   /*Reittiohjelistan numeroinnin tyyli*/
   .mainList li:before{
       content: counter(counter, decimal);
-      display: inline-block;
-      text-align: center;
-      font-size: 2em;
-      line-height: 1.2em;
-      background-color:   #35535c;
-    
-      padding-left: 0.5em;
-      padding-right: 0.5em;
-      padding-top: 0.5em;
-      padding-bottom: 0.7em;
-      font-weight: bold;
-      position: absolute; 
-      top: 0.01em;
-      left: -12px;
-      border-radius:50%;
-      font-family: exo;
+  display: inline-block;
+  font-size: 2em;
+  line-height: 1em;
+  background-color:#35535c;
+
+  padding-left: 0.3em;
+  padding-right: 0.3em;
+  padding-top: 0.3em;
+  padding-bottom: 0.5em;
+  font-weight: bold;
+  position: absolute; 
+  top: 0.01em;
+  left: -5px;
+  border-radius:50%;
+  font-family: exo;
      
   }
   /*Joka toinen listaelementti on erivärinen*/
@@ -114,15 +120,13 @@ background-attachment: fixed;
       background-color:  #35535c;
   }
 .mainList li button{
-  background-color: #576e75;
-    color:white;
-    margin-top: 8px;
-    border-radius: 12px;
-    text-align: center;
+
+  float: right;
+text-align: center;
  
-  margin-bottom: 3px;
+
   font-size:2 vw;
-    background-color:#576e75;
+    background-color:#2d2d3d;
     color: white;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -189,10 +193,12 @@ h4{
 
 label{
   font-size:2.5vw;
+  font-weight: bold;
 }
 
 .searchTerms label{
   font-size: 1.5em;
+  color: #2d2d3d;
 }
 .released{
   width: 99%;
@@ -240,7 +246,7 @@ label{
   float: right;
 
   font-size:2 vw;
-    background-color:#576e75;
+    background-color:#2d2d3d;
     color: white;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -324,7 +330,7 @@ label{
  
   margin-bottom: 3px;
   font-size:2 vw;
-    background-color:#576e75;
+    background-color:#2d2d3d;
     color: white;
 
   }
@@ -383,7 +389,6 @@ label{
       font-family: exo;
   }
   .mainList li button{
-    background-color: #576e75;
     color:white;
     margin-top: 8px;
     border-radius: 12px;
@@ -391,7 +396,7 @@ label{
  
   margin-bottom: 3px;
   font-size:2 vw;
-    background-color:#44c767;
+    background-color:#2d2d3d;
     color: white;
   }
   
@@ -511,9 +516,9 @@ label{
     
 }
 .constant {
-	background-color:#44c767;
+	background-color:#2d2d3d;
 	border-radius:8vw;
-	border:1px solid #18ab29;
+	border:2px solid #1a1897;
 	display:inline-block;
 	cursor:pointer;
 	color:#ffffff;
@@ -524,7 +529,7 @@ label{
 	text-shadow:0px 1px 0px #2f6627;
 }
 .constant:hover {
-	background-color:#5cbf2a;
+	background-color:#1d1d22;
 }
 .constant:active {
 	position:relative;
@@ -533,6 +538,7 @@ label{
 
 .searchTerms label{
   font-size: 5vw;
+  color: #2d2d3d;;
 
 }
 

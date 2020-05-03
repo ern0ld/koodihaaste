@@ -264,12 +264,12 @@ class Graphics
                 infoContext.font = "7vw Kremlin Pro Web";
                 infoContext.fillText(welcome, infoCanvas.width/6, yPosition+50,infoCanvas.width-20, 0, 2 * Math.PI, false);
                 infoContext.font = "5vw Kremlin Pro Web";
-                infoContext.fillText(text2, 20, yPosition+100,infoCanvas.width-20, 0, 2 * Math.PI, false);
-                infoContext.fillText(text3, 20, yPosition+130,infoCanvas.width-20, 0, 2 * Math.PI, false);
+                infoContext.fillText(text2, 20, yPosition+100,infoCanvas.width-30, 0, 2 * Math.PI, false);
+                infoContext.fillText(text3, 20, yPosition+130,infoCanvas.width-30, 0, 2 * Math.PI, false);
                 infoContext.stroke();
                 infoContext.moveTo(10,yPosition+160)
-                infoContext.fillText(text4, 20, yPosition+180,infoCanvas.width-20, 0, 2 * Math.PI, false);
-                infoContext.fillText(text5,20,yPosition+210, infoCanvas.width-20, 0, 2 * Math.PI, false);
+                infoContext.fillText(text4, 20, yPosition+180,infoCanvas.width-30, 0, 2 * Math.PI, false);
+                infoContext.fillText(text5,20,yPosition+210, infoCanvas.width-30, 0, 2 * Math.PI, false);
                 infoContext.stroke();
                  
         }
