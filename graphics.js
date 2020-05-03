@@ -201,7 +201,7 @@ class Graphics
             resizeCanvas();
         }
     
-           
+           //piirretään kartta
         function redraw() {
                 ctx.beginPath();
                 ctx.drawImage(img, 0, 0, img.width, img.height);
@@ -225,6 +225,7 @@ class Graphics
                 img.height = window.innerHeight/2
                redraw();
            if(infotime){
+               //piirretään suuren näytön ohje
                 showInfo();
            }
             
@@ -236,6 +237,7 @@ class Graphics
                 img.height = window.innerHeight/2
                 redrawSmall();
              if(infotime){
+                 //piirretään peienen näytön ohje
                     showSmallInfo();
              }
                 
@@ -273,6 +275,7 @@ class Graphics
                 infoContext.stroke();
                  
         }
+        
         function showInfo(){
                 var infoCanvas = document.getElementById("infoCanvas");
                 var infoContext = infoCanvas.getContext("2d");

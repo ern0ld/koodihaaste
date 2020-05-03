@@ -73,7 +73,7 @@ async function calculate(){
         weight["finish"] =Infinity;
         graph["finish"][endPoint] = 1
 
-        //dijkstran algoritmi laskee nopeimman reitin graafin painotusten perusteella
+        //Dijkstran algoritmi laskee nopeimman reitin graafin painotusten perusteella
         var calc = dijkstra(graph,weight,parents)
         //Otetaan lasketusta tuloksesta length, eli matkan kesto
         tulos.innerHTML = "Lyhimmän matkan kesto yhteensä " + calc["length"] + " aikayksikköä"
@@ -162,7 +162,7 @@ async function createElements(toReturn,result,colorList,tulos){
         routeInfoDiv.appendChild(uList)
         reittiDiv.appendChild(routeInfoDiv)
     }
- //Avaa kartan
+ //Avaa kartan ja sivupalkin
 function openNav() {
     if(window.innerWidth > 600){
     try{
